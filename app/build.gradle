@@ -1,33 +1,75 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
+repositories {
+  google()
+}
+
 android {
-    compileSdkVersion 26
-    defaultConfig {
-        applicationId "com.potato.jubilantpotato"
-        minSdkVersion 21
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  compileSdkVersion 26
+  defaultConfig {
+    applicationId "com.potato.jubilantpotato"
+    minSdkVersion 21
+    targetSdkVersion 26
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  buildTypes {
+    debug {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      buildConfigField 'String', 'BASE_URL', '""'
+      buildConfigField 'String', 'LANGUAGE', '"en"'
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+  }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+  implementation "androidx.core:core-ktx:$ktx_version"
+  implementation 'com.android.support:appcompat-v7:26.1.0'
+  implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+  implementation 'com.google.android.gms:play-services-auth:11.8.0'
+  implementation 'com.google.firebase:firebase-core:11.8.0'
+  testImplementation 'junit:junit:4.12'
+  androidTestImplementation 'com.android.support.test:runner:1.0.1'
+  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+
+  // Butter Knife
+  implementation "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
+  annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
+
+  // Dagger 2
+  implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
+  kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+
+  // Retrofit
+  implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+  implementation "com.squareup.retrofit2:adapter-rxjava:$rootProject.retrofitVersion"
+  implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+
+  // OkHttp
+  implementation "com.squareup.okhttp3:okhttp:$rootProject.okHttpVersion"
+  implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okHttpVersion"
+
+  // Rx
+  implementation "io.reactivex:rxandroid:$rootProject.rxVersion"
+  implementation "io.reactivex:rxjava:$rootProject.rxVersion"
+  implementation "com.jakewharton.rxbinding:rxbinding:$rootProject.rxBindingVersion"
+  implementation "com.jakewharton.rxbinding:rxbinding-appcompat-v7:$rootProject.rxBindingVersion"
+
+  // Anko
+  implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
 }
+
+apply plugin: 'com.google.gms.google-services'

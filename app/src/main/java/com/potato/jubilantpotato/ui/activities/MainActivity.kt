@@ -1,7 +1,8 @@
-package com.potato.jubilantpotato
+package com.potato.jubilantpotato.ui.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.potato.jubilantpotato.R
 
 class MainActivity : AppCompatActivity() {
 
