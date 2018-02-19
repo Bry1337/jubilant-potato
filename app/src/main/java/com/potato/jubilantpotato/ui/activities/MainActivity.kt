@@ -1,13 +1,28 @@
 package com.potato.jubilantpotato.ui.activities
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
+import android.content.Intent
 import com.potato.jubilantpotato.R
+import com.potato.jubilantpotato.ui.ToolBarbaseActivity
+import com.potato.jubilantpotato.ui.activities.login.LoginActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ToolBarbaseActivity() {
+  override val isActionBarBackButtonEnabled: Boolean
+    get() = false
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+  override fun setupActivityLayout() {
     setContentView(R.layout.activity_main)
   }
+
+  override fun setupViewElements() {
+    launchLoginScreen()
+  }
+
+  override fun injectDaggerComponent() {
+  }
+
+  private fun launchLoginScreen() {
+    startActivity(Intent(this, LoginActivity::class.java))
+    finish()
+  }
+
 }

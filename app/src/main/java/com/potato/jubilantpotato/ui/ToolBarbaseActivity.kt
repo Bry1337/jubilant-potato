@@ -1,6 +1,6 @@
 package com.potato.jubilantpotato.ui
 
-import android.widget.Toolbar
+import android.support.v7.widget.Toolbar
 import butterknife.BindView
 import com.potato.jubilantpotato.R
 
@@ -13,5 +13,13 @@ import com.potato.jubilantpotato.R
 abstract class ToolBarbaseActivity : BaseActivity() {
 
   @BindView(R.id.toolbar)
-  lateinit var toolbar: Toolbar
+  var toolbar: Toolbar? = null
+
+  override fun setupToolbar() {
+    setSupportActionBar(toolbar)
+    if (isActionBarBackButtonEnabled) {
+      supportActionBar?.setDisplayHomeAsUpEnabled(true)
+      supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+  }
 }

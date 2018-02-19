@@ -13,6 +13,7 @@ buildscript {
     classpath 'com.android.tools.build:gradle:3.0.1'
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     classpath 'com.google.gms:google-services:3.2.0'
+    classpath "com.jakewharton:butterknife-gradle-plugin:8.8.1"
 
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
@@ -34,6 +35,7 @@ task clean(type: Delete) {
 ext {
 
   // App dependencies
+  androidSupportVersion = '26.1.0'
   leakcanaryVersion = '1.5'
   rxVersion = '1.2.1'
   okHttpVersion = '3.9.0'
@@ -43,7 +45,7 @@ ext {
   googleAutoVersion = '1.0-beta4'
   guavaVersion = '20.0'
   jwtVersion = '0.7.0'
-  butterknifeVersion = '8.7.0'
+  butterknifeVersion = '8.8.1'
   glideVersion = '3.7.0'
   datePickerVersion = '3.4.1'
   jodaVersion = '2.9.4'

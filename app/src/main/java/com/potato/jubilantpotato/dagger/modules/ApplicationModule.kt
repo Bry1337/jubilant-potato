@@ -1,6 +1,7 @@
 package com.potato.jubilantpotato.dagger.modules
 
 import android.app.Application
+import com.potato.jubilantpotato.managers.AppActivityManager
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -16,7 +17,14 @@ import javax.inject.Singleton
 class ApplicationModule(private val application: Application) {
 
   @Provides
-  @Singleton internal fun provideApplication(): Application {
+  @Singleton
+  internal fun provideApplication(): Application {
     return application
+  }
+
+  @Provides
+  @Singleton
+  internal fun provideAppActivitymanager(): AppActivityManager {
+    return AppActivityManager()
   }
 }
