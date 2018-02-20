@@ -7,14 +7,10 @@ repositories {
   google()
 }
 
-kapt {
-  generateStubs = true
-}
-
 android {
   compileSdkVersion 26
   defaultConfig {
-    applicationId "com.potato.jubilantpotato"
+    applicationId "com.tickr.tickr"
     minSdkVersion 21
     targetSdkVersion 26
     versionCode 1
