@@ -8,11 +8,31 @@
     tools:showIn="@layout/activity_login"
     >
 
-  <com.google.android.gms.common.SignInButton
-      android:id="@+id/btnGoogleSignIn"
-      android:layout_width="wrap_content"
+  <RelativeLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
-      />
+      android:padding="@dimen/normal_overall_padding"
+      >
 
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btnGoogleSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        />
+
+    <Button
+        android:id="@+id/btnGuest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnGoogleSignIn"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:text="@string/guest"
+        android:textColor="@color/grey_600"
+        android:textStyle="bold"
+        style="@style/AppTheme.Button"
+        />
+  </RelativeLayout>
 </RelativeLayout>
