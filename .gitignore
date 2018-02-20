@@ -132,5 +132,3 @@ fabric.properties
 
 /gradle/
 /.idea/
-/app/google-services.json
-!/app/google-services.json
