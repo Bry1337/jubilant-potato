@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "462740588547",
+    "firebase_url": "https://jubilant-potato.firebaseio.com",
+    "project_id": "jubilant-potato",
+    "storage_bucket": "jubilant-potato.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462740588547:android:27f3878f7abbd129",
+        "android_client_info": {
+          "package_name": "com.potato.jubilantpotato"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "462740588547-i92jgvd68lcrhnjh68jqs3331o16l0o2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPmB1ahK4vRUs2T9OuunoXmHDQrb_axF4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

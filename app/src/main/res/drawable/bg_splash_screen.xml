@@ -6,7 +6,7 @@
   <item>
     <bitmap
         android:gravity="center"
-        android:src="@drawable/google_doodle" />
+        android:src="@drawable/img_splash_screen" />
   </item>
 
 </layer-list>
