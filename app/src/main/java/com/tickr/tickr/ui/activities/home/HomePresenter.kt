@@ -17,6 +17,7 @@ import com.tickr.tickr.application.AppConstants
 import com.tickr.tickr.models.Article
 import com.tickr.tickr.models.Category
 import com.tickr.tickr.ui.BasePresenter
+import com.tickr.tickr.ui.utils.OnSingleItemClickListener
 import rx.Subscription
 
 
@@ -25,11 +26,10 @@ import rx.Subscription
  *
  * @author edwardbryan.abergas@gmail.com
  */
-class HomePresenter(var activity: HomeActivity, var apiManager: ApiManager) : BasePresenter() {
+class HomePresenter(var activity: HomeActivity,
+    var apiManager: ApiManager) : BasePresenter(), OnSingleItemClickListener {
 
   lateinit var articleList: ArrayList<Article>
-  var categorySize: Int = 0
-  var totalCategorySize: Int = 0
 
   override fun getAlertDialog(): AlertDialog {
     return activity.alertDialog
@@ -62,29 +62,32 @@ class HomePresenter(var activity: HomeActivity, var apiManager: ApiManager) : Ba
   }
 
   private fun processFirebaseOnDataChange(p0: DataSnapshot?) {
-    categorySize = p0?.child(AppConstants.FIREBASE_CATEGORY)!!.child(
-        AppConstants.FIREBASE_DEFAULT_CATEGORY)!!.childrenCount.toInt()
-    for (dataSnapShot: DataSnapshot in p0.child(AppConstants.FIREBASE_CATEGORY)!!.child(
+    activity.showProgressBar()
+    for (dataSnapShot: DataSnapshot in p0?.child(AppConstants.FIREBASE_CATEGORY)!!.child(
         AppConstants.FIREBASE_DEFAULT_CATEGORY)!!.children) run {
       val category = dataSnapShot.getValue(Category::class.java)
-      getCategoryTopHeadlines(category!!.source)
-      totalCategorySize++
+      activity.subscription.add(getCategoryTopHeadlines(category!!.source))
     }
   }
 
 
   fun getCategoryTopHeadlines(sources: String): Subscription {
-    activity.showProgressBar()
     return apiManager.getCategoryTopHeadlines(sources).subscribe(object : SimpleObserver<NewsResponse>() {
       override fun onNext(t: NewsResponse) {
         activity.hideProgressBar()
-        processAddingArticleList(t)
+        if (t.status.equals(AppConstants.NEWS_API_STATUS_OK)) {
+          processAddingArticleList(t)
+        } else {
+          activity.showUnexpectedError()
+        }
       }
 
       override fun onError(e: Throwable?) {
         activity.hideProgressBar()
         if ((e as RetrofitException).kind?.equals(RetrofitException.Kind.NETWORK)!!) {
           activity.showNetworkErrorLayout()
+        } else {
+          activity.handleHttpError(e, activity.sharedPreferenceManager)
         }
       }
 
@@ -110,6 +113,11 @@ class HomePresenter(var activity: HomeActivity, var apiManager: ApiManager) : Ba
     }
 
     return false
+  }
+
+  override fun onSingleItemClick(obj: Any) {
+    val article: Article = obj as Article
+    activity.appActivityManager.displayPlatformnews(activity, article)
   }
 
 }

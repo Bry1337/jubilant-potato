@@ -1,69 +1,63 @@
-package com.tickr.tickr.ui.activities.home
+package com.tickr.tickr.ui.activities.platform
 
 import android.support.v7.app.AlertDialog
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import android.view.View
-import com.google.firebase.database.DatabaseReference
 import com.tickr.tickr.R
+import com.tickr.tickr.application.AppConstants
 import com.tickr.tickr.application.TickrApplication
-import com.tickr.tickr.managers.AppActivityManager
 import com.tickr.tickr.managers.prefs.SharedPreferenceManager
 import com.tickr.tickr.models.Article
 import com.tickr.tickr.ui.HttpToolBarBaseActivity
-import kotlinx.android.synthetic.main.content_home.*
 import kotlinx.android.synthetic.main.content_no_internet.*
+import kotlinx.android.synthetic.main.content_platform.*
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
 /**
- * Created by bry1337 on 20/02/2018.
+ * Created by bry1337 on 21/02/2018.
  *
  * @author edwardbryan.abergas@gmail.com
  */
-class HomeActivity : HttpToolBarBaseActivity() {
+class PlatformActivity : HttpToolBarBaseActivity() {
 
   @Inject
   lateinit var alertDialog: AlertDialog
   @Inject
-  lateinit var appActivityManager: AppActivityManager
-  @Inject
-  lateinit var databaseReference: DatabaseReference
-  @Inject
-  lateinit var homePresenter: HomePresenter
-  @Inject
   lateinit var subscription: CompositeSubscription
   @Inject
   lateinit var sharedPreferenceManager: SharedPreferenceManager
+  @Inject
+  lateinit var platformPresenter: PlatformPresenter
 
-  private lateinit var homeDefaultCategoryAdapter: HomeDefaultCategoryAdapter
+  private lateinit var platformNewsAdapter: PlatformNewsAdapter
   private lateinit var articles: ArrayList<Article>
-
+  private lateinit var article: Article
 
   override val isActionBarBackButtonEnabled: Boolean
     get() = true
 
   override fun setupActivityLayout() {
-    setContentView(R.layout.activity_home)
+    setContentView(R.layout.activity_platform)
   }
 
   override fun setupViewElements() {
-    initHomeDefaultCategoryAdapter()
-    homePresenter.initArticleList()
-    homePresenter.initNewsDefaultCategory()
+    initPlatformNewsAdapter()
+    getIntentObject()
     btnRetryConnection.setOnClickListener({
       hideNetworkErrorLayout()
-      homePresenter.initNewsDefaultCategory()
+      initSubscription(article)
     })
   }
 
   override fun injectDaggerComponent() {
-    TickrApplication[this].createHomeComponent(this).inject(this)
+    TickrApplication[this].createPlatformComponent(this).inject(this)
   }
 
   override fun onDestroy() {
     super.onDestroy()
-    TickrApplication[this].releaseHomeComponent()
+    TickrApplication[this].releasePlatformComponent()
   }
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -80,47 +74,56 @@ class HomeActivity : HttpToolBarBaseActivity() {
     get() = subscription
 
   override fun onNetworkErrorFound(message: String) {
-    homePresenter.showAlertDialog(message)
+    platformPresenter.showAlertDialog(message)
   }
 
   override fun onHttpErrorUnexpectedFound(message: String) {
-    homePresenter.showAlertDialog(message)
+    platformPresenter.showAlertDialog(message)
   }
 
-  fun initHomeDefaultCategoryAdapter() {
+  fun getIntentObject() {
+    article = intent.getParcelableExtra(AppConstants.ARTICLE_OBJECT)
+    title = article.source?.name
+    initSubscription(article)
+  }
+
+  fun initSubscription(article: Article) {
+    subscription.add(platformPresenter.getTopHeadlines(article.source?.id!!))
+  }
+
+  fun initPlatformNewsAdapter() {
     articles = ArrayList()
-    homeDefaultCategoryAdapter = HomeDefaultCategoryAdapter(articles, homePresenter, this)
-    rvDefaultCategory.adapter = homeDefaultCategoryAdapter
-    rvDefaultCategory.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
-    rvDefaultCategory.isNestedScrollingEnabled = false
+    platformNewsAdapter = PlatformNewsAdapter(articles, this, platformPresenter)
+    rvPlatformNews.adapter = platformNewsAdapter
+    rvPlatformNews.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+    rvPlatformNews.isNestedScrollingEnabled = false
   }
 
   fun setArticles(articleList: ArrayList<Article>) {
     articles.clear()
     articles.addAll(articleList)
-    homeDefaultCategoryAdapter.notifyDataSetChanged()
+    platformNewsAdapter.notifyDataSetChanged()
   }
 
   fun showProgressBar() {
-    pbHome.visibility = View.VISIBLE
+    pbPlatformNews.visibility = View.VISIBLE
   }
 
   fun hideProgressBar() {
-    pbHome.visibility = View.GONE
+    pbPlatformNews.visibility = View.GONE
   }
 
   fun showNetworkErrorLayout() {
-    noInternetLayout.visibility = View.VISIBLE
+    noInternetLayoutPlatform.visibility = View.VISIBLE
   }
 
   fun hideNetworkErrorLayout() {
-    if (noInternetLayout.visibility == View.VISIBLE) {
-      noInternetLayout.visibility = View.GONE
+    if (noInternetLayoutPlatform.visibility == View.VISIBLE) {
+      noInternetLayoutPlatform.visibility = View.GONE
     }
   }
 
   fun showUnexpectedError() {
-    homePresenter.showAlertDialog(getString(R.string.http_error_unexpected))
+    platformPresenter.showAlertDialog(getString(R.string.http_error_unexpected))
   }
-
 }
