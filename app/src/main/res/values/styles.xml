@@ -17,8 +17,8 @@
 
   <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-  <style name="AppTheme.Button">
-    <item name="android:background">@drawable/bg_white_semi_rounded_corner_button</item>
+  <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
+    <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small</item>
   </style>
 
   <style name="AppTheme.NoActionBar">

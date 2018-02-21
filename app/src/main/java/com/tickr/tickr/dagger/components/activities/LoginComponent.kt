@@ -1,4 +1,4 @@
-package com.tickr.tickr.dagger.components
+package com.tickr.tickr.dagger.components.activities
 
 import com.tickr.tickr.dagger.modules.activities.LoginModule
 import com.tickr.tickr.dagger.modules.api.UserApiModule
@@ -12,7 +12,7 @@ import dagger.Subcomponent
  * @author edwardbryan.abergas@gmail.com
  */
 @UserScope
-@Subcomponent(modules = arrayOf(LoginModule::class, UserApiModule::class))
+@Subcomponent(modules = [(LoginModule::class), (UserApiModule::class)])
 interface LoginComponent {
   fun inject(loginActivity: LoginActivity): LoginActivity
 }

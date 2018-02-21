@@ -3,9 +3,12 @@ package com.tickr.tickr.application
 import android.content.Context
 import com.tickr.tickr.dagger.components.ApplicationComponent
 import com.tickr.tickr.dagger.components.DaggerApplicationComponent
-import com.tickr.tickr.dagger.components.LoginComponent
+import com.tickr.tickr.dagger.components.activities.HomeComponent
+import com.tickr.tickr.dagger.components.activities.LoginComponent
 import com.tickr.tickr.dagger.modules.ApplicationModule
+import com.tickr.tickr.dagger.modules.activities.HomeModule
 import com.tickr.tickr.dagger.modules.activities.LoginModule
+import com.tickr.tickr.ui.activities.home.HomeActivity
 import com.tickr.tickr.ui.activities.login.LoginActivity
 
 /**
@@ -13,14 +16,15 @@ import com.tickr.tickr.ui.activities.login.LoginActivity
  *
  * @author edwardbryan.abergas@gmail.com
  */
-class JubilantPotatoApplication : BaseApplication() {
+class TickrApplication : BaseApplication() {
 
   private lateinit var applicationComponent: ApplicationComponent
   private var loginComponent: LoginComponent? = null
+  private var homeComponent: HomeComponent? = null
 
   companion object {
-    operator fun get(context: Context): JubilantPotatoApplication {
-      return context.applicationContext as JubilantPotatoApplication
+    operator fun get(context: Context): TickrApplication {
+      return context.applicationContext as TickrApplication
     }
   }
 
@@ -39,7 +43,16 @@ class JubilantPotatoApplication : BaseApplication() {
     return loginComponent as LoginComponent
   }
 
+  fun createHomeComponent(homeActivity: HomeActivity): HomeComponent{
+    homeComponent = applicationComponent.plus(HomeModule(homeActivity))
+    return homeComponent as HomeComponent
+  }
+
   fun releaseLoginComponent() {
     loginComponent = null
+  }
+
+  fun releaseHomeComponent(){
+    homeComponent = null
   }
 }

@@ -11,10 +11,17 @@ class AppConstants {
     const val NEWS_API: String = "https://newsapi.org/v2/"
     const val NEWS_API_SOURCES: String = "sources"
     const val NEWS_API_KEY: String = "apiKey"
+    const val NEWS_TOP_HEADLINES_API: String = "top-headlines"
 
 
     // TECHCRUNCH
     const val TECH_CRUNCH_TOP_HEADLINES_API: String = "top-headlines"
     const val TECH_CRUNCH_SOURCES: String = "techcrunch"
+
+
+    // FIREBASE CONSTANTS
+    const val FIREBASE_CATEGORY = "category"
+    const val FIREBASE_DEFAULT_CATEGORY = "default"
+    const val FIREBASE_INFO_CONNECTION = ".info/connected"
   }
 }
