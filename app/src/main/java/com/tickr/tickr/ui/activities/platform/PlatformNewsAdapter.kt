@@ -1,4 +1,4 @@
-package com.tickr.tickr.ui.activities.home
+package com.tickr.tickr.ui.activities.platform
 
 import android.app.Activity
 import android.support.v7.widget.RecyclerView
@@ -17,13 +17,12 @@ import com.tickr.tickr.ui.utils.OnBindViewListener
  *
  * @author edwardbryan.abergas@gmail.com
  */
-class HomeDefaultCategoryAdapter(var articles: ArrayList<Article>,
-    var presenter: HomePresenter,
-    var activity: HomeActivity) : RecyclerView.Adapter<HomeDefaultCategoryAdapter.ViewHolder>() {
-
+class PlatformNewsAdapter(var articles: ArrayList<Article>,
+    var platformActivity: PlatformActivity,
+    var platformPresenter: PlatformPresenter) : RecyclerView.Adapter<PlatformNewsAdapter.ViewHolder>() {
 
   override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-    return ViewHolder(LayoutInflater.from(activity).inflate(R.layout.item_default_category_news, parent, false))
+    return ViewHolder(LayoutInflater.from(platformActivity).inflate(R.layout.item_platform_news, parent, false))
   }
 
   override fun getItemCount(): Int {
@@ -31,27 +30,24 @@ class HomeDefaultCategoryAdapter(var articles: ArrayList<Article>,
   }
 
   override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-    holder?.onBind(articles[position], activity, presenter)
+    holder?.onBind(articles[position], platformActivity, platformPresenter)
   }
 
 
   class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), OnBindViewListener {
 
-    var ivNewsImage = itemView?.findViewById<ImageView>(R.id.ivNewsImage)
-    var tvDescription = itemView?.findViewById<TextView>(R.id.tvDescription)
+    var ivPlatformNews = itemView?.findViewById<ImageView>(R.id.ivPlatformNews)
     var tvTitle = itemView?.findViewById<TextView>(R.id.tvTitle)
-    var tvSource = itemView?.findViewById<TextView>(R.id.tvSource)
+    var tvDescription = itemView?.findViewById<TextView>(R.id.tvDescription)
+    var tvAuthor = itemView?.findViewById<TextView>(R.id.tvAuthor)
 
     override fun onBind(obj: Any, activity: Activity, presenter: Any) {
       val article: Article = obj as Article
-
+      Glide.with(activity).load(article.urlToImage).centerCrop().crossFade().into(ivPlatformNews)
       tvTitle?.text = article.title
       tvDescription?.text = article.description
-      tvSource?.text = article.source?.name
-      Glide.with(activity).load(article.urlToImage).centerCrop().crossFade().into(ivNewsImage)
-      ivNewsImage?.setOnClickListener({ (presenter as HomePresenter).onSingleItemClick(article) })
+      tvAuthor?.text = article.author
     }
 
   }
-
 }
