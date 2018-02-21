@@ -1,6 +1,9 @@
 package com.tickr.tickr.dagger.components
 
+import com.tickr.tickr.dagger.components.activities.HomeComponent
+import com.tickr.tickr.dagger.components.activities.LoginComponent
 import com.tickr.tickr.dagger.modules.ApplicationModule
+import com.tickr.tickr.dagger.modules.activities.HomeModule
 import com.tickr.tickr.dagger.modules.activities.LoginModule
 import com.tickr.tickr.dagger.modules.api.ApiModule
 import dagger.Component
@@ -16,4 +19,6 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(ApplicationModule::class, ApiModule::class))
 interface ApplicationComponent {
   fun plus(loginModule: LoginModule): LoginComponent
+
+  fun plus(homeModule: HomeModule): HomeComponent
 }

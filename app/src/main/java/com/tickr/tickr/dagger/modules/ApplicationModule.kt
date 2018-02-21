@@ -1,7 +1,10 @@
 package com.tickr.tickr.dagger.modules
 
 import android.app.Application
+import android.content.Context
 import com.tickr.tickr.managers.AppActivityManager
+import com.tickr.tickr.managers.prefs.SharedPreferenceKeys
+import com.tickr.tickr.managers.prefs.SharedPreferenceManager
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -26,5 +29,12 @@ class ApplicationModule(private val application: Application) {
   @Singleton
   internal fun provideAppActivitymanager(): AppActivityManager {
     return AppActivityManager()
+  }
+
+  @Provides
+  @Singleton
+  internal fun provideSharedPreferenceManager(): SharedPreferenceManager {
+    return SharedPreferenceManager(
+        application.applicationContext.getSharedPreferences(SharedPreferenceKeys.MY_PREFERENCE, Context.MODE_PRIVATE))
   }
 }

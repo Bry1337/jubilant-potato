@@ -2,4 +2,12 @@
   <string name="app_name">Tickr</string>
 
   <string name="guest">Guest</string>
+  <string name="ok">Ok</string>
+  <string name="retry">Retry</string>
+
+  <string name="authentication_failed">Authentication Failed.</string>
+  <string name="home">Home</string>
+  <string name="no_internet">No Internet connection. Make sure Wi-Fi or cellular data is turned on, then try again.</string>
+
+  <string name="http_error_unexpected">Http request: Unexpected error found</string>
 </resources>

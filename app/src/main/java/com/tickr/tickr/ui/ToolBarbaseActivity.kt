@@ -1,7 +1,6 @@
 package com.tickr.tickr.ui
 
 import android.support.v7.widget.Toolbar
-import butterknife.BindView
 import com.tickr.tickr.R
 
 /**
@@ -12,10 +11,10 @@ import com.tickr.tickr.R
 
 abstract class ToolBarbaseActivity : BaseActivity() {
 
-  @BindView(R.id.toolbar)
-  var toolbar: Toolbar? = null
+  private var toolbar: Toolbar? = null
 
   override fun setupToolbar() {
+    toolbar = findViewById(R.id.toolbar)
     setSupportActionBar(toolbar)
     if (isActionBarBackButtonEnabled) {
       supportActionBar?.setDisplayHomeAsUpEnabled(true)

@@ -17,13 +17,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
-        android:visibility="gone"
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:titleTextAppearance="@style/TextAppearance.AppCompat.Small"
         />
 
   </android.support.design.widget.AppBarLayout>
 
-  <include layout="@layout/content_login" />
+  <include layout="@layout/content_home" />
 
 </android.support.design.widget.CoordinatorLayout>

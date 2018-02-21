@@ -8,9 +8,9 @@ import org.apache.commons.lang3.StringUtils
  *
  * @author edwardbryan.abergas@gmail.com
  */
-class TechCrunchResponse {
+class NewsResponse {
   var status: String = StringUtils.EMPTY
-  var totalResult: Int = 0
-  var articleList: List<Article>? = null
+  var totalResults: Int = 0
+  var articles: ArrayList<Article>? = null
 
 }

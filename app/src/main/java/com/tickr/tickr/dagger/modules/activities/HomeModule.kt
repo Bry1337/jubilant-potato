@@ -1,27 +1,29 @@
 package com.tickr.tickr.dagger.modules.activities
 
 import android.support.v7.app.AlertDialog
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.tickr.tickr.api.managers.ApiManager
 import com.tickr.tickr.dagger.scopes.UserScope
-import com.tickr.tickr.ui.activities.login.LoginActivity
-import com.tickr.tickr.ui.activities.login.LoginPresenter
+import com.tickr.tickr.ui.activities.home.HomeActivity
+import com.tickr.tickr.ui.activities.home.HomePresenter
 import dagger.Module
 import dagger.Provides
 import rx.subscriptions.CompositeSubscription
-import javax.inject.Singleton
 
 /**
- * Created by bry1337 on 19/02/2018.
+ * Created by bry1337 on 20/02/2018.
  *
  * @author edwardbryan.abergas@gmail.com
  */
 @UserScope
 @Module
-class LoginModule(var activity: LoginActivity) {
+class HomeModule(var activity: HomeActivity) {
+
 
   @Provides
   @UserScope
-  fun provideLoginActivity(): LoginActivity {
+  fun provideActivity(): HomeActivity {
     return activity
   }
 
@@ -39,8 +41,15 @@ class LoginModule(var activity: LoginActivity) {
 
   @Provides
   @UserScope
-  fun provideLoginPresenter(apiManager: ApiManager): LoginPresenter {
-    return LoginPresenter(activity, apiManager)
+  fun provideHomePresenter(apiManager: ApiManager): HomePresenter {
+    return HomePresenter(activity, apiManager)
   }
+
+  @Provides
+  @UserScope
+  fun provideFirebaseDatabaseReference(): DatabaseReference {
+    return FirebaseDatabase.getInstance().reference
+  }
+
 
 }

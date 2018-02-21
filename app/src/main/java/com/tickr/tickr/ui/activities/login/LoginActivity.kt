@@ -2,9 +2,12 @@ package com.tickr.tickr.ui.activities.login
 
 import android.app.Activity
 import android.content.Intent
+import android.support.v7.app.AlertDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.tickr.tickr.R
-import com.tickr.tickr.application.JubilantPotatoApplication
+import com.tickr.tickr.application.TickrApplication
+import com.tickr.tickr.managers.AppActivityManager
+import com.tickr.tickr.managers.prefs.SharedPreferenceManager
 import com.tickr.tickr.ui.ToolBarbaseActivity
 import kotlinx.android.synthetic.main.content_login.*
 import javax.inject.Inject
@@ -21,6 +24,12 @@ class LoginActivity : ToolBarbaseActivity() {
 
   @Inject
   lateinit var loginPresenter: LoginPresenter
+  @Inject
+  lateinit var appActivityManager: AppActivityManager
+  @Inject
+  lateinit var alertDialog: AlertDialog
+  @Inject
+  lateinit var sharedPreferenceManager: SharedPreferenceManager
 
   override val isActionBarBackButtonEnabled: Boolean
     get() = true
@@ -31,16 +40,18 @@ class LoginActivity : ToolBarbaseActivity() {
 
   override fun setupViewElements() {
     loginPresenter.initGoogleSignInOptions()
+    loginPresenter.initFirebaseAuth()
     btnGoogleSignIn.setOnClickListener({ onGoogleSignIn() })
+    btnGuest.setOnClickListener({ onGuestSignIn() })
   }
 
   override fun injectDaggerComponent() {
-    JubilantPotatoApplication[this].createLoginComponent(this).inject(this)
+    TickrApplication[this].createLoginComponent(this).inject(this)
   }
 
   override fun onDestroy() {
     super.onDestroy()
-    JubilantPotatoApplication[this].releaseLoginComponent()
+    TickrApplication[this].releaseLoginComponent()
   }
 
   override fun onStart() {
@@ -50,6 +61,10 @@ class LoginActivity : ToolBarbaseActivity() {
 
   private fun onGoogleSignIn() {
     startActivityForResult(loginPresenter.getGoogleSignInIntent(), GOOGLE_SIGN_IN_REQUEST)
+  }
+
+  private fun onGuestSignIn() {
+    loginPresenter.guestSignIn()
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
