@@ -10,4 +10,12 @@
   <string name="no_internet">No Internet connection. Make sure Wi-Fi or cellular data is turned on, then try again.</string>
 
   <string name="http_error_unexpected">Http request: Unexpected error found</string>
+
+  <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+  <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+
+  <string name="are_you_sure_you_want_to_exit">Are you sure you want to exit?</string>
+  <string name="are_you_sure_you_want_to_logout">Are you sure you want to sign out?</string>
+  <string name="yes">Yes</string>
+  <string name="no">No</string>
 </resources>

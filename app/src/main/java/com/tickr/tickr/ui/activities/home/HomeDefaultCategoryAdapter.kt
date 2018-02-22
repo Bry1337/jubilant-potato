@@ -38,6 +38,7 @@ class HomeDefaultCategoryAdapter(var articles: ArrayList<Article>,
   class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), OnBindViewListener {
 
     var ivNewsImage = itemView?.findViewById<ImageView>(R.id.ivNewsImage)
+    var ivStar = itemView?.findViewById<ImageView>(R.id.ivStar)
     var tvDescription = itemView?.findViewById<TextView>(R.id.tvDescription)
     var tvTitle = itemView?.findViewById<TextView>(R.id.tvTitle)
     var tvSource = itemView?.findViewById<TextView>(R.id.tvSource)
@@ -48,8 +49,19 @@ class HomeDefaultCategoryAdapter(var articles: ArrayList<Article>,
       tvTitle?.text = article.title
       tvDescription?.text = article.description
       tvSource?.text = article.source?.name
-      Glide.with(activity).load(article.urlToImage).centerCrop().crossFade().into(ivNewsImage)
       ivNewsImage?.setOnClickListener({ (presenter as HomePresenter).onSingleItemClick(article) })
+      displayImage(activity, article)
+      displayStar(activity)
+    }
+
+    private fun displayImage(activity: Activity, article: Article) {
+      Glide.with(activity).load(article.urlToImage).centerCrop().crossFade().into(ivNewsImage)
+    }
+
+    private fun displayStar(activity: Activity) {
+      if ((activity as HomeActivity).sharedPreferenceManager.isUserLoggedIn()) {
+        ivStar?.visibility = View.VISIBLE
+      }
     }
 
   }

@@ -105,15 +105,14 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/normal_margin"
-      android:padding="@dimen/normal_overall_padding"
       >
     <ImageView
         android:id="@+id/ivShareNews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/tvLink"
-        android:layout_marginBottom="@dimen/medium_overall_margin"
         android:background="?android:selectableItemBackground"
+        android:padding="@dimen/normal_overall_padding"
         android:src="@drawable/ic_share_color_primary"
         />
 
@@ -123,6 +122,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:ellipsize="end"
+        android:padding="@dimen/normal_overall_padding"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="@dimen/font_size_very_small"
         tools:text="text"

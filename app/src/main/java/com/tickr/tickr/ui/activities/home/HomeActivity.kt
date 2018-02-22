@@ -1,9 +1,15 @@
 package com.tickr.tickr.ui.activities.home
 
+import android.content.DialogInterface
+import android.support.v4.view.GravityCompat
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.view.MenuItem
 import android.view.View
+import com.bumptech.glide.Glide
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.tickr.tickr.R
 import com.tickr.tickr.application.TickrApplication
@@ -11,8 +17,11 @@ import com.tickr.tickr.managers.AppActivityManager
 import com.tickr.tickr.managers.prefs.SharedPreferenceManager
 import com.tickr.tickr.models.Article
 import com.tickr.tickr.ui.HttpToolBarBaseActivity
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_home_drawer.*
 import kotlinx.android.synthetic.main.content_home.*
 import kotlinx.android.synthetic.main.content_no_internet.*
+import kotlinx.android.synthetic.main.content_profile_section.*
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
@@ -35,26 +44,28 @@ class HomeActivity : HttpToolBarBaseActivity() {
   lateinit var subscription: CompositeSubscription
   @Inject
   lateinit var sharedPreferenceManager: SharedPreferenceManager
+  @Inject
+  lateinit var mGoogleSignInClient: GoogleSignInClient
+  @Inject
+  lateinit var mAuth: FirebaseAuth
 
   private lateinit var homeDefaultCategoryAdapter: HomeDefaultCategoryAdapter
   private lateinit var articles: ArrayList<Article>
 
 
   override val isActionBarBackButtonEnabled: Boolean
-    get() = true
+    get() = false
 
   override fun setupActivityLayout() {
-    setContentView(R.layout.activity_home)
+    setContentView(R.layout.activity_home_drawer)
   }
 
   override fun setupViewElements() {
     initHomeDefaultCategoryAdapter()
+    setViewObjects()
     homePresenter.initArticleList()
     homePresenter.initNewsDefaultCategory()
-    btnRetryConnection.setOnClickListener({
-      hideNetworkErrorLayout()
-      homePresenter.initNewsDefaultCategory()
-    })
+    initListener()
   }
 
   override fun injectDaggerComponent() {
@@ -74,6 +85,14 @@ class HomeActivity : HttpToolBarBaseActivity() {
       }
     }
     return super.onOptionsItemSelected(item)
+  }
+
+  override fun onBackPressed() {
+    if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+      drawer_layout.closeDrawer(GravityCompat.START)
+    } else {
+      exitApp()
+    }
   }
 
   override val compositeSubscription: CompositeSubscription
@@ -122,5 +141,62 @@ class HomeActivity : HttpToolBarBaseActivity() {
   fun showUnexpectedError() {
     homePresenter.showAlertDialog(getString(R.string.http_error_unexpected))
   }
+
+  fun setViewObjects() {
+    tvFullName.text = sharedPreferenceManager.getFullName()
+    Glide.with(this).load(sharedPreferenceManager.getPhotoUri()).centerCrop().crossFade().into(ivProfilePicture)
+    if (!sharedPreferenceManager.isUserLoggedIn()) {
+      ivLogout.visibility = View.GONE
+    } else {
+      setupNavigation()
+    }
+  }
+
+  fun exitApp() {
+    val dialogBuilder = AlertDialog.Builder(this, R.style.ExitDialog)
+    val exitDialog: AlertDialog = dialogBuilder.create()
+    exitDialog.setMessage(getString(R.string.are_you_sure_you_want_to_exit))
+    exitDialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.yes)
+    ) { _, _ ->
+      exitDialog.dismiss()
+      finish()
+    }
+    exitDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.no)
+    ) { _, _ -> alertDialog.dismiss() }
+    exitDialog.show()
+  }
+
+  fun logoutApp() {
+    val dialogBuilder = AlertDialog.Builder(this, R.style.ExitDialog)
+    val exitDialog: AlertDialog = dialogBuilder.create()
+    exitDialog.setMessage(getString(R.string.are_you_sure_you_want_to_logout))
+    exitDialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.yes)
+    ) { _, _ ->
+      homePresenter.signOut()
+    }
+    exitDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.no)
+    ) { _, _ -> alertDialog.dismiss() }
+    exitDialog.show()
+  }
+
+
+  private fun setupNavigation() {
+    val toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.navigation_drawer_open,
+        R.string.navigation_drawer_close)
+    drawer_layout.addDrawerListener(toggle)
+    toggle.syncState()
+  }
+
+
+  private fun initListener() {
+    btnRetryConnection.setOnClickListener({
+      hideNetworkErrorLayout()
+      homePresenter.initNewsDefaultCategory()
+    })
+    ivLogout.setOnClickListener({
+      logoutApp()
+    })
+  }
+
 
 }

@@ -41,8 +41,9 @@ class HomePresenter(var activity: HomeActivity,
 
   override fun onSingleItemClick(obj: Any) {
     val article: Article = obj as Article
-    activity.appActivityManager.displayPlatformnews(activity, article)
+    activity.appActivityManager.displayPlatformNews(activity, article)
   }
+
 
   fun initArticleList() {
     articleList = ArrayList()
@@ -69,6 +70,15 @@ class HomePresenter(var activity: HomeActivity,
     articleList.add(newsResponse.articles!![0])
     activity.setArticles(articleList)
   }
+
+  fun signOut() {
+    activity.mAuth.signOut()
+    activity.mGoogleSignInClient.signOut()
+    activity.sharedPreferenceManager.clearSharedPreferences()
+    activity.appActivityManager.redirectToLogin(activity)
+    activity.finish()
+  }
+
 
   private fun processFirebaseOnDataChange(p0: DataSnapshot?) {
     if (articleList.size > 0) {
