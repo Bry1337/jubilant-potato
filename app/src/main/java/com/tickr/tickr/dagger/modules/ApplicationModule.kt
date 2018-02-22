@@ -66,6 +66,6 @@ class ApplicationModule(private val application: Application) {
         .requestProfile()
         .requestEmail()
         .build()
-    return GoogleSignIn.getClient(application, gso)
+    return GoogleSignIn.getClient(application.applicationContext, gso)
   }
 }
