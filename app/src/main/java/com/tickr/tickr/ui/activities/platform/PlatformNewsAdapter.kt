@@ -47,6 +47,8 @@ class PlatformNewsAdapter(var articles: ArrayList<Article>,
       tvTitle?.text = article.title
       tvDescription?.text = article.description
       tvAuthor?.text = article.author
+
+      itemView.setOnClickListener({ (presenter as PlatformPresenter).onSingleItemClick(article) })
     }
 
   }

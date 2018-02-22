@@ -22,6 +22,6 @@
 
   </android.support.design.widget.AppBarLayout>
 
-  <include layout="@layout/content_home" />
+  <include layout="@layout/content_detailed_news" />
 
 </android.support.design.widget.CoordinatorLayout>

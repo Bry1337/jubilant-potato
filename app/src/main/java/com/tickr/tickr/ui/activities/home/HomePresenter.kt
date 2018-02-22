@@ -39,6 +39,11 @@ class HomePresenter(var activity: HomeActivity,
     return activity
   }
 
+  override fun onSingleItemClick(obj: Any) {
+    val article: Article = obj as Article
+    activity.appActivityManager.displayPlatformnews(activity, article)
+  }
+
   fun initArticleList() {
     articleList = ArrayList()
   }
@@ -54,24 +59,32 @@ class HomePresenter(var activity: HomeActivity,
       }
 
     })
-    if (!isNetworkAvailable(activity)) {
-      activity.showNetworkErrorLayout()
-    } else {
-      activity.hideNetworkErrorLayout()
+    handleNetworkLayout()
+  }
+
+  fun processAddingArticleList(newsResponse: NewsResponse) {
+    if (articleList.size == AppConstants.CATEGORY_CURRENT_COUNT) {
+      articleList.clear()
     }
+    articleList.add(newsResponse.articles!![0])
+    activity.setArticles(articleList)
   }
 
   private fun processFirebaseOnDataChange(p0: DataSnapshot?) {
+    if (articleList.size > 0) {
+      articleList.clear()
+    }
     activity.showProgressBar()
     for (dataSnapShot: DataSnapshot in p0?.child(AppConstants.FIREBASE_CATEGORY)!!.child(
         AppConstants.FIREBASE_DEFAULT_CATEGORY)!!.children) run {
       val category = dataSnapShot.getValue(Category::class.java)
       activity.subscription.add(getCategoryTopHeadlines(category!!.source))
     }
+    handleNetworkLayout()
   }
 
 
-  fun getCategoryTopHeadlines(sources: String): Subscription {
+  private fun getCategoryTopHeadlines(sources: String): Subscription {
     return apiManager.getCategoryTopHeadlines(sources).subscribe(object : SimpleObserver<NewsResponse>() {
       override fun onNext(t: NewsResponse) {
         activity.hideProgressBar()
@@ -94,12 +107,8 @@ class HomePresenter(var activity: HomeActivity,
     })
   }
 
-  fun processAddingArticleList(newsResponse: NewsResponse) {
-    articleList.add(newsResponse.articles!![0])
-    activity.setArticles(articleList)
-  }
 
-  fun isNetworkAvailable(con: Context): Boolean {
+  private fun isNetworkAvailable(con: Context): Boolean {
     try {
       val cm = con
           .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -115,9 +124,12 @@ class HomePresenter(var activity: HomeActivity,
     return false
   }
 
-  override fun onSingleItemClick(obj: Any) {
-    val article: Article = obj as Article
-    activity.appActivityManager.displayPlatformnews(activity, article)
+  private fun handleNetworkLayout() {
+    if (!isNetworkAvailable(activity)) {
+      activity.showNetworkErrorLayout()
+    } else {
+      activity.hideNetworkErrorLayout()
+    }
   }
 
 }

@@ -7,7 +7,9 @@ import com.tickr.tickr.api.response.NewsResponse
 import com.tickr.tickr.api.utils.RetrofitException
 import com.tickr.tickr.api.utils.SimpleObserver
 import com.tickr.tickr.application.AppConstants
+import com.tickr.tickr.models.Article
 import com.tickr.tickr.ui.BasePresenter
+import com.tickr.tickr.ui.utils.OnSingleItemClickListener
 import rx.Subscription
 
 /**
@@ -16,7 +18,12 @@ import rx.Subscription
  * @author edwardbryan.abergas@gmail.com
  */
 class PlatformPresenter(var activity: PlatformActivity,
-    var apiManager: ApiManager) : BasePresenter() {
+    var apiManager: ApiManager) : BasePresenter(), OnSingleItemClickListener {
+
+  override fun onSingleItemClick(obj: Any) {
+    val article: Article = obj as Article
+    activity.appActivityManager.displayDetailedNews(activity, article)
+  }
 
   override fun getActivity(): Activity {
     return activity

@@ -19,7 +19,6 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         android:visibility="gone"
         app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:titleTextAppearance="@style/TextAppearance.AppCompat.Small"
         />
 
   </android.support.design.widget.AppBarLayout>

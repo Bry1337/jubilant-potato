@@ -7,6 +7,7 @@ import android.view.View
 import com.tickr.tickr.R
 import com.tickr.tickr.application.AppConstants
 import com.tickr.tickr.application.TickrApplication
+import com.tickr.tickr.managers.AppActivityManager
 import com.tickr.tickr.managers.prefs.SharedPreferenceManager
 import com.tickr.tickr.models.Article
 import com.tickr.tickr.ui.HttpToolBarBaseActivity
@@ -30,6 +31,8 @@ class PlatformActivity : HttpToolBarBaseActivity() {
   lateinit var sharedPreferenceManager: SharedPreferenceManager
   @Inject
   lateinit var platformPresenter: PlatformPresenter
+  @Inject
+  lateinit var appActivityManager: AppActivityManager
 
   private lateinit var platformNewsAdapter: PlatformNewsAdapter
   private lateinit var articles: ArrayList<Article>
