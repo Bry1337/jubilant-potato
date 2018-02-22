@@ -1,9 +1,11 @@
 package com.tickr.tickr.dagger.components
 
+import com.tickr.tickr.dagger.components.activities.DetailedNewsComponent
 import com.tickr.tickr.dagger.components.activities.HomeComponent
 import com.tickr.tickr.dagger.components.activities.LoginComponent
 import com.tickr.tickr.dagger.components.activities.PlatformComponent
 import com.tickr.tickr.dagger.modules.ApplicationModule
+import com.tickr.tickr.dagger.modules.activities.DetailedNewsModule
 import com.tickr.tickr.dagger.modules.activities.HomeModule
 import com.tickr.tickr.dagger.modules.activities.LoginModule
 import com.tickr.tickr.dagger.modules.activities.PlatformModule
@@ -25,4 +27,6 @@ interface ApplicationComponent {
   fun plus(homeModule: HomeModule): HomeComponent
 
   fun plus(platformModule: PlatformModule): PlatformComponent
+
+  fun plus(detailedNewsModule: DetailedNewsModule): DetailedNewsComponent
 }

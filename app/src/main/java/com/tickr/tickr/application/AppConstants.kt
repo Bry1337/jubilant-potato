@@ -28,5 +28,8 @@ class AppConstants {
 
     // AppActivityManager Constants
     const val ARTICLE_OBJECT = "articleObject"
+    const val CATEGORY_CURRENT_COUNT: Int = 6
+    const val SHARING_TYPE: String = "text/plain"
+    const val SHARE_TEXT: String = "Share"
   }
 }

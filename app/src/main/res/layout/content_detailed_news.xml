@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_detailed_news"
+    >
+
+  <android.support.v4.widget.NestedScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+      <ImageView
+          android:id="@+id/ivDetailedNewsImage"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/detailed_news_height"
+          />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/small_margin"
+          android:layout_marginStart="@dimen/small_margin"
+          android:orientation="vertical"
+          android:padding="@dimen/normal_overall_padding"
+          >
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/grey_600"
+            android:textSize="@dimen/font_size_small"
+            tools:text="text"
+            />
+        <TextView
+            android:id="@+id/tvAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/grey_600"
+            android:textSize="@dimen/font_size_small"
+            android:textStyle="italic"
+            tools:text="text"
+            />
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/normal_margin"
+          android:orientation="vertical"
+          android:padding="@dimen/normal_overall_padding"
+          >
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textColor="@color/grey_600"
+            android:textSize="@dimen/font_size_small"
+            android:textStyle="bold"
+            tools:text="text"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_300"
+            />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_margin"
+            android:ellipsize="end"
+            android:textColor="@color/grey_600"
+            android:textSize="@dimen/font_size_small"
+            tools:text="text"
+            />
+
+      </LinearLayout>
+
+
+    </LinearLayout>
+
+  </android.support.v4.widget.NestedScrollView>
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/normal_margin"
+      android:padding="@dimen/normal_overall_padding"
+      >
+    <ImageView
+        android:id="@+id/ivShareNews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvLink"
+        android:layout_marginBottom="@dimen/medium_overall_margin"
+        android:background="?android:selectableItemBackground"
+        android:src="@drawable/ic_share_color_primary"
+        />
+
+    <TextView
+        android:id="@+id/tvLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:ellipsize="end"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="@dimen/font_size_very_small"
+        tools:text="text"
+        />
+
+  </RelativeLayout>
+  <ProgressBar
+      android:id="@+id/pbDetailedNews"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:indeterminateTint="@color/colorPrimary"
+      android:visibility="gone"
+      />
+  <include
+      layout="@layout/content_no_internet"
+      android:id="@+id/noInternetLayoutPlatform"
+      android:visibility="gone"
+      />
+</RelativeLayout>
