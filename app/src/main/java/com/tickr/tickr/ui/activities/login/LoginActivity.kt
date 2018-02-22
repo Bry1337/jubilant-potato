@@ -4,6 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AlertDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
 import com.tickr.tickr.R
 import com.tickr.tickr.application.TickrApplication
 import com.tickr.tickr.managers.AppActivityManager
@@ -30,6 +33,12 @@ class LoginActivity : ToolBarbaseActivity() {
   lateinit var alertDialog: AlertDialog
   @Inject
   lateinit var sharedPreferenceManager: SharedPreferenceManager
+  @Inject
+  lateinit var databaseReference: DatabaseReference
+  @Inject
+  lateinit var mGoogleSignInClient: GoogleSignInClient
+  @Inject
+  lateinit var mAuth: FirebaseAuth
 
   override val isActionBarBackButtonEnabled: Boolean
     get() = true
@@ -39,8 +48,6 @@ class LoginActivity : ToolBarbaseActivity() {
   }
 
   override fun setupViewElements() {
-    loginPresenter.initGoogleSignInOptions()
-    loginPresenter.initFirebaseAuth()
     btnGoogleSignIn.setOnClickListener({ onGoogleSignIn() })
     btnGuest.setOnClickListener({ onGuestSignIn() })
   }

@@ -45,11 +45,6 @@ class HomeModule(var activity: HomeActivity) {
     return HomePresenter(activity, apiManager)
   }
 
-  @Provides
-  @UserScope
-  fun provideFirebaseDatabaseReference(): DatabaseReference {
-    return FirebaseDatabase.getInstance().reference
-  }
 
 
 }

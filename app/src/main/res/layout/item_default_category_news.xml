@@ -21,6 +21,16 @@
           android:alpha="1"
           />
 
+      <ImageView
+          android:id="@+id/ivStar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentEnd="true"
+          android:padding="@dimen/normal_overall_padding"
+          android:src="@drawable/ic_star"
+          android:visibility="gone"
+          />
+
       <TextView
           android:id="@+id/tvSource"
           android:layout_width="wrap_content"
@@ -34,6 +44,7 @@
           android:maxLines="1"
           android:textColor="@android:color/white"
           android:textSize="@dimen/font_size_very_small"
+          style="@style/TextViewShadowStyle"
           />
 
       <TextView
@@ -48,6 +59,7 @@
           android:maxLines="1"
           android:textColor="@android:color/white"
           android:textSize="@dimen/font_size_very_small"
+          style="@style/TextViewShadowStyle"
           />
 
       <TextView
@@ -63,6 +75,7 @@
           android:maxLines="1"
           android:textColor="@android:color/white"
           android:textSize="@dimen/font_size_very_small"
+          style="@style/TextViewShadowStyle"
           />
 
     </RelativeLayout>
