@@ -2,7 +2,9 @@ package com.tickr.tickr.ui.activities.login
 
 import android.app.Activity
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -92,6 +94,22 @@ class LoginPresenter(var activity: LoginActivity, var apiManager: ApiManager) : 
           }
 
         })
+  }
+
+  fun isNetworkAvailable(con: Context): Boolean {
+    try {
+      val cm = con
+          .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+      val networkInfo = cm.activeNetworkInfo
+
+      if (networkInfo != null && networkInfo.isConnected) {
+        return true
+      }
+    } catch (e: Exception) {
+      e.printStackTrace()
+    }
+
+    return false
   }
 
 

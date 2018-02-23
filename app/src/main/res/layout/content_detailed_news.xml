@@ -110,10 +110,22 @@
         android:id="@+id/ivShareNews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/tvLink"
+        android:layout_above="@+id/tvReadMore"
         android:background="?android:selectableItemBackground"
         android:padding="@dimen/normal_overall_padding"
         android:src="@drawable/ic_share_color_primary"
+        />
+
+    <TextView
+        android:id="@+id/tvReadMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvLink"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:ellipsize="end"
+        android:text="@string/read_more"
+        android:textColor="@color/grey_600"
+        android:textSize="@dimen/font_size_small"
         />
 
     <TextView

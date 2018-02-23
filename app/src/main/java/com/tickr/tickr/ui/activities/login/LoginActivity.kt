@@ -3,6 +3,8 @@ package com.tickr.tickr.ui.activities.login
 import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AlertDialog
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
@@ -67,7 +69,11 @@ class LoginActivity : ToolBarbaseActivity() {
   }
 
   private fun onGoogleSignIn() {
-    startActivityForResult(loginPresenter.getGoogleSignInIntent(), GOOGLE_SIGN_IN_REQUEST)
+    if (loginPresenter.isNetworkAvailable(this)) {
+      startActivityForResult(loginPresenter.getGoogleSignInIntent(), GOOGLE_SIGN_IN_REQUEST)
+    } else {
+      Toast.makeText(this, getString(R.string.no_internet), LENGTH_SHORT).show()
+    }
   }
 
   private fun onGuestSignIn() {
