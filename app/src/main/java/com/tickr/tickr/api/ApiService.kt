@@ -20,4 +20,8 @@ interface ApiService {
   @GET(AppConstants.NEWS_TOP_HEADLINES_API)
   fun getCategoryTopHeadlines(@Query(AppConstants.NEWS_API_SOURCES) sources: String,
       @Query(AppConstants.NEWS_API_KEY) apiKey: String): Observable<NewsResponse>
+
+  @GET(AppConstants.NEWS_EVERYTHING_API)
+  fun getEverything(@Query(AppConstants.NEWS_API_QUERY) sources: String,
+      @Query(AppConstants.NEWS_API_KEY) apiKey: String): Observable<NewsResponse>
 }

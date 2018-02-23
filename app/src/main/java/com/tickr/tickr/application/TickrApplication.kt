@@ -3,18 +3,13 @@ package com.tickr.tickr.application
 import android.content.Context
 import com.tickr.tickr.dagger.components.ApplicationComponent
 import com.tickr.tickr.dagger.components.DaggerApplicationComponent
-import com.tickr.tickr.dagger.components.activities.DetailedNewsComponent
-import com.tickr.tickr.dagger.components.activities.HomeComponent
-import com.tickr.tickr.dagger.components.activities.LoginComponent
-import com.tickr.tickr.dagger.components.activities.PlatformComponent
+import com.tickr.tickr.dagger.components.activities.*
 import com.tickr.tickr.dagger.modules.ApplicationModule
-import com.tickr.tickr.dagger.modules.activities.DetailedNewsModule
-import com.tickr.tickr.dagger.modules.activities.HomeModule
-import com.tickr.tickr.dagger.modules.activities.LoginModule
-import com.tickr.tickr.dagger.modules.activities.PlatformModule
+import com.tickr.tickr.dagger.modules.activities.*
 import com.tickr.tickr.ui.activities.detailednews.DetailedNewsActivity
 import com.tickr.tickr.ui.activities.home.HomeActivity
 import com.tickr.tickr.ui.activities.login.LoginActivity
+import com.tickr.tickr.ui.activities.newslist.PlatformListActivity
 import com.tickr.tickr.ui.activities.platform.PlatformActivity
 
 /**
@@ -29,6 +24,7 @@ class TickrApplication : BaseApplication() {
   private var homeComponent: HomeComponent? = null
   private var platformComponent: PlatformComponent? = null
   private var detailedNewsComponent: DetailedNewsComponent? = null
+  private var platformListComponent: PlatformListComponent? = null
 
   companion object {
     operator fun get(context: Context): TickrApplication {
@@ -66,6 +62,11 @@ class TickrApplication : BaseApplication() {
     return detailedNewsComponent as DetailedNewsComponent
   }
 
+  fun createPlatformListComponent(platformListActivity: PlatformListActivity): PlatformListComponent {
+    platformListComponent = applicationComponent.plus(PlatformListModule(platformListActivity))
+    return platformListComponent as PlatformListComponent
+  }
+
   fun releaseLoginComponent() {
     loginComponent = null
   }
@@ -80,5 +81,9 @@ class TickrApplication : BaseApplication() {
 
   fun releaseDetailedNewsComponent() {
     detailedNewsComponent = null
+  }
+
+  fun releasePlatformListComponent(){
+    platformListComponent = null
   }
 }

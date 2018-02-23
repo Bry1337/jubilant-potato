@@ -5,6 +5,8 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import com.bumptech.glide.Glide
@@ -83,6 +85,11 @@ class HomeActivity : HttpToolBarBaseActivity() {
         onBackPressed()
         return true
       }
+
+      R.id.action_login -> {
+        appActivityManager.displayLoginScreen(this)
+        finish()
+      }
     }
     return super.onOptionsItemSelected(item)
   }
@@ -104,6 +111,14 @@ class HomeActivity : HttpToolBarBaseActivity() {
 
   override fun onHttpErrorUnexpectedFound(message: String) {
     homePresenter.showAlertDialog(message)
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    if (!sharedPreferenceManager.isUserLoggedIn()) {
+      val menuInflater: MenuInflater = menuInflater
+      menuInflater.inflate(R.menu.home, menu)
+    }
+    return super.onCreateOptionsMenu(menu)
   }
 
   fun initHomeDefaultCategoryAdapter() {

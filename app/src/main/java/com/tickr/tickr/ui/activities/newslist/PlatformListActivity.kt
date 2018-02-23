@@ -1,4 +1,4 @@
-package com.tickr.tickr.ui.activities.platform
+package com.tickr.tickr.ui.activities.newslist
 
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
@@ -11,17 +11,16 @@ import com.tickr.tickr.managers.AppActivityManager
 import com.tickr.tickr.managers.prefs.SharedPreferenceManager
 import com.tickr.tickr.models.Article
 import com.tickr.tickr.ui.HttpToolBarBaseActivity
-import kotlinx.android.synthetic.main.content_no_internet.*
-import kotlinx.android.synthetic.main.content_platform.*
+import kotlinx.android.synthetic.main.content_platform_list.*
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
 /**
- * Created by bry1337 on 21/02/2018.
+ * Created by bry1337 on 23/02/2018.
  *
  * @author edwardbryan.abergas@gmail.com
  */
-class PlatformActivity : HttpToolBarBaseActivity() {
+class PlatformListActivity : HttpToolBarBaseActivity() {
 
   @Inject
   lateinit var alertDialog: AlertDialog
@@ -30,34 +29,43 @@ class PlatformActivity : HttpToolBarBaseActivity() {
   @Inject
   lateinit var sharedPreferenceManager: SharedPreferenceManager
   @Inject
-  lateinit var platformPresenter: PlatformPresenter
-  @Inject
   lateinit var appActivityManager: AppActivityManager
+  @Inject
+  lateinit var platformPresenter: PlatformListPresenter
 
-  private lateinit var platformNewsAdapter: PlatformNewsAdapter
+  private lateinit var platformListAdapter: PlatformListAdapter
   private lateinit var articles: ArrayList<Article>
   private lateinit var article: Article
 
+  override val compositeSubscription: CompositeSubscription
+    get() = subscription
   override val isActionBarBackButtonEnabled: Boolean
     get() = true
 
+  override fun onNetworkErrorFound(message: String) {
+    platformPresenter.showAlertDialog(message)
+  }
+
+  override fun onHttpErrorUnexpectedFound(message: String) {
+    platformPresenter.showAlertDialog(message)
+  }
+
   override fun setupActivityLayout() {
-    setContentView(R.layout.activity_platform)
+    setContentView(R.layout.activity_platform_list)
   }
 
   override fun setupViewElements() {
     initPlatformNewsAdapter()
     getIntentObject()
-    setListeners()
   }
 
   override fun injectDaggerComponent() {
-    TickrApplication[this].createPlatformComponent(this).inject(this)
+    TickrApplication[this].createPlatformListComponent(this).inject(this)
   }
 
   override fun onDestroy() {
     super.onDestroy()
-    TickrApplication[this].releasePlatformComponent()
+    TickrApplication[this].releasePlatformListComponent()
   }
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -70,71 +78,49 @@ class PlatformActivity : HttpToolBarBaseActivity() {
     return super.onOptionsItemSelected(item)
   }
 
-  override val compositeSubscription: CompositeSubscription
-    get() = subscription
-
-  override fun onNetworkErrorFound(message: String) {
-    platformPresenter.showAlertDialog(message)
-  }
-
-  override fun onHttpErrorUnexpectedFound(message: String) {
-    platformPresenter.showAlertDialog(message)
-  }
-
   fun getIntentObject() {
     article = intent.getParcelableExtra(AppConstants.ARTICLE_OBJECT)
     title = article.source?.name
-    tvSeeMore.text = String.format(getString(R.string.everything_about), article.source?.name)
     initSubscription(article)
   }
 
   fun initSubscription(article: Article) {
-    subscription.add(platformPresenter.getTopHeadlines(article.source?.id!!))
+    subscription.add(platformPresenter.getEverything(article.source?.id!!))
   }
 
   fun initPlatformNewsAdapter() {
     articles = ArrayList()
-    platformNewsAdapter = PlatformNewsAdapter(articles, this, platformPresenter)
-    rvPlatformNews.adapter = platformNewsAdapter
-    rvPlatformNews.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-    rvPlatformNews.isNestedScrollingEnabled = false
+    platformListAdapter = PlatformListAdapter(articles, this, platformPresenter)
+    rvPlatformListNews.adapter = platformListAdapter
+    rvPlatformListNews.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+    rvPlatformListNews.isNestedScrollingEnabled = false
   }
 
   fun setArticles(articleList: ArrayList<Article>) {
     articles.clear()
     articles.addAll(articleList)
-    platformNewsAdapter.notifyDataSetChanged()
+    platformListAdapter.notifyDataSetChanged()
   }
 
   fun showProgressBar() {
-    pbPlatformNews.visibility = View.VISIBLE
+    pbPlatformListNews.visibility = View.VISIBLE
   }
 
   fun hideProgressBar() {
-    pbPlatformNews.visibility = View.GONE
+    pbPlatformListNews.visibility = View.GONE
   }
 
   fun showNetworkErrorLayout() {
-    noInternetLayoutPlatform.visibility = View.VISIBLE
+    noInternetLayoutPlatformListNews.visibility = View.VISIBLE
   }
 
   fun hideNetworkErrorLayout() {
-    if (noInternetLayoutPlatform.visibility == View.VISIBLE) {
-      noInternetLayoutPlatform.visibility = View.GONE
+    if (noInternetLayoutPlatformListNews.visibility == View.VISIBLE) {
+      noInternetLayoutPlatformListNews.visibility = View.GONE
     }
   }
 
   fun showUnexpectedError() {
     platformPresenter.showAlertDialog(getString(R.string.http_error_unexpected))
-  }
-
-  private fun setListeners() {
-    btnRetryConnection.setOnClickListener({
-      hideNetworkErrorLayout()
-      initSubscription(article)
-    })
-    tvSeeMore.setOnClickListener {
-      this.appActivityManager.displayPlatformListNews(this, article)
-    }
   }
 }

@@ -40,6 +40,11 @@
         android:name=".ui.activities.detailednews.DetailedNewsActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar" />
+
+    <activity
+        android:name=".ui.activities.newslist.PlatformListActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.NoActionBar" />
   </application>
 
 </manifest>

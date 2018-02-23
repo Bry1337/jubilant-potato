@@ -9,6 +9,7 @@ import com.tickr.tickr.models.Article
 import com.tickr.tickr.ui.activities.detailednews.DetailedNewsActivity
 import com.tickr.tickr.ui.activities.home.HomeActivity
 import com.tickr.tickr.ui.activities.login.LoginActivity
+import com.tickr.tickr.ui.activities.newslist.PlatformListActivity
 import com.tickr.tickr.ui.activities.platform.PlatformActivity
 
 /**
@@ -19,6 +20,12 @@ import com.tickr.tickr.ui.activities.platform.PlatformActivity
 class AppActivityManager {
 
   fun redirectToLogin(activity: Activity) {
+    val intent = Intent(activity, LoginActivity::class.java)
+    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    activity.startActivity(intent)
+  }
+
+  fun displayLoginScreen(activity: Activity) {
     val intent = Intent(activity, LoginActivity::class.java)
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
     activity.startActivity(intent)
@@ -56,5 +63,11 @@ class AppActivityManager {
     intent.type = AppConstants.SHARING_TYPE
     intent.putExtra(Intent.EXTRA_TEXT, url)
     activity.startActivity(Intent.createChooser(intent, AppConstants.SHARE_TEXT))
+  }
+
+  fun displayPlatformListNews(activity: Activity, article: Article) {
+    val intent = Intent(activity, PlatformListActivity::class.java)
+    intent.putExtra(AppConstants.ARTICLE_OBJECT, article)
+    activity.startActivity(intent)
   }
 }
