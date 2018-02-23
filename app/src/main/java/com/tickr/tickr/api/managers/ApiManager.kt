@@ -25,4 +25,9 @@ class ApiManager(var apiService: ApiService) {
     return apiService.getCategoryTopHeadlines(sources, BuildConfig.API_KEY).subscribeOn(Schedulers.io()).observeOn(
         AndroidSchedulers.mainThread())
   }
+
+  fun getEverythingFromCategory(q: String): Observable<NewsResponse> {
+    return apiService.getEverything(q, BuildConfig.API_KEY).subscribeOn(Schedulers.io()).observeOn(
+        AndroidSchedulers.mainThread())
+  }
 }

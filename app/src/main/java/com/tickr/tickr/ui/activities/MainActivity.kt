@@ -3,6 +3,7 @@ package com.tickr.tickr.ui.activities
 import android.content.Intent
 import com.tickr.tickr.R
 import com.tickr.tickr.ui.ToolBarbaseActivity
+import com.tickr.tickr.ui.activities.home.HomeActivity
 import com.tickr.tickr.ui.activities.login.LoginActivity
 
 class MainActivity : ToolBarbaseActivity() {
@@ -21,7 +22,7 @@ class MainActivity : ToolBarbaseActivity() {
   }
 
   private fun launchLoginScreen() {
-    startActivity(Intent(this, LoginActivity::class.java))
+    startActivity(Intent(this, HomeActivity::class.java))
     finish()
   }
 

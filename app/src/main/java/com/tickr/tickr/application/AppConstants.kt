@@ -10,8 +10,10 @@ class AppConstants {
     // BASE URL
     const val NEWS_API: String = "https://newsapi.org/v2/"
     const val NEWS_API_SOURCES: String = "sources"
+    const val NEWS_API_QUERY: String = "q"
     const val NEWS_API_KEY: String = "apiKey"
     const val NEWS_TOP_HEADLINES_API: String = "top-headlines"
+    const val NEWS_EVERYTHING_API: String = "everything"
     const val NEWS_API_STATUS_OK = "ok"
 
 

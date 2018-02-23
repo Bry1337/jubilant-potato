@@ -1,14 +1,8 @@
 package com.tickr.tickr.dagger.components
 
-import com.tickr.tickr.dagger.components.activities.DetailedNewsComponent
-import com.tickr.tickr.dagger.components.activities.HomeComponent
-import com.tickr.tickr.dagger.components.activities.LoginComponent
-import com.tickr.tickr.dagger.components.activities.PlatformComponent
+import com.tickr.tickr.dagger.components.activities.*
 import com.tickr.tickr.dagger.modules.ApplicationModule
-import com.tickr.tickr.dagger.modules.activities.DetailedNewsModule
-import com.tickr.tickr.dagger.modules.activities.HomeModule
-import com.tickr.tickr.dagger.modules.activities.LoginModule
-import com.tickr.tickr.dagger.modules.activities.PlatformModule
+import com.tickr.tickr.dagger.modules.activities.*
 import com.tickr.tickr.dagger.modules.api.ApiModule
 import dagger.Component
 import javax.inject.Singleton
@@ -29,4 +23,6 @@ interface ApplicationComponent {
   fun plus(platformModule: PlatformModule): PlatformComponent
 
   fun plus(detailedNewsModule: DetailedNewsModule): DetailedNewsComponent
+
+  fun plus(platformListModule: PlatformListModule): PlatformListComponent
 }
