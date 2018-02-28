@@ -13,6 +13,7 @@ class Source() : Parcelable {
   var id: String? = StringUtils.EMPTY
   var name: String? = StringUtils.EMPTY
 
+
   constructor(parcel: Parcel) : this() {
     id = parcel.readString()
     name = parcel.readString()
@@ -36,4 +37,5 @@ class Source() : Parcelable {
       return arrayOfNulls(size)
     }
   }
+
 }

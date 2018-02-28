@@ -211,6 +211,9 @@ class HomeActivity : HttpToolBarBaseActivity() {
     ivLogout.setOnClickListener({
       logoutApp()
     })
+    llBookMarks.setOnClickListener({
+      appActivityManager.displayBookmarks(this)
+    })
   }
 
 

@@ -23,4 +23,7 @@
   <string name="login">Login</string>
   <string name="headlines">Headlines</string>
   <string name="everything_about">Everything about %s</string>
+  <string name="this_article_has_been_bookmarked">This article has been bookmarked</string>
+  <string name="something_unexpected_happened">Something unexpected occurred, please try again later.</string>
+  <string name="bookmarks">Bookmarks</string>
 </resources>

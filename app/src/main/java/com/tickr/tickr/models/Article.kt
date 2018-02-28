@@ -18,6 +18,7 @@ class Article() : Parcelable {
   var url: String? = StringUtils.EMPTY
   var urlToImage: String? = StringUtils.EMPTY
   var publishedAt: String? = StringUtils.EMPTY
+  var firebaseKey: String? = StringUtils.EMPTY
 
   constructor(parcel: Parcel) : this() {
     author = parcel.readString()

@@ -3,6 +3,7 @@ package com.tickr.tickr.ui.activities.login
 import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AlertDialog
+import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -88,6 +89,14 @@ class LoginActivity : ToolBarbaseActivity() {
         loginPresenter.handleSignInResult(task)
       }
     }
+  }
+
+  fun showProgressBar() {
+    pbLogin.visibility = View.VISIBLE
+  }
+
+  fun hideProgressBar() {
+    pbLogin.visibility = View.INVISIBLE
   }
 
 }

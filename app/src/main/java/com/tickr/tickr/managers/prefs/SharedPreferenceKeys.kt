@@ -11,5 +11,7 @@ class SharedPreferenceKeys{
     const val MY_PREFERENCE = "tickrPreference"
     const val FULL_NAME: String = "fullName"
     const val PHOTO_URL: String = "photoUrl"
+    const val EMAIL: String = "email"
+    const val UID: String = "uid"
   }
 }

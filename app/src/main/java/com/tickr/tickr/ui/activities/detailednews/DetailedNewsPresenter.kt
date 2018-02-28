@@ -3,7 +3,10 @@ package com.tickr.tickr.ui.activities.detailednews
 import android.app.Activity
 import android.support.v7.app.AlertDialog
 import com.tickr.tickr.api.managers.ApiManager
+import com.tickr.tickr.application.AppConstants
+import com.tickr.tickr.models.Article
 import com.tickr.tickr.ui.BasePresenter
+import com.tickr.tickr.ui.utils.Base64Utility
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -44,6 +47,19 @@ class DetailedNewsPresenter(var activity: DetailedNewsActivity,
 
   fun shareToOthers(url: String) {
     activity.appActivityManager.shareToOthers(activity, url)
+  }
+
+  fun saveToFirebase(article: Article) {
+    val sourceId = Base64Utility.encodeTextWithBase64(
+        String.format("%s%s%s", article.source?.id, article.author, article.publishedAt))
+    val databaseReference = activity.databaseReference.child(AppConstants.FIREBASE_BOOKMARKS).child(
+        activity.sharedPreferenceManager.getUID())
+    databaseReference.child(sourceId).setValue(article).addOnCompleteListener({ task ->
+      if (task.isSuccessful) {
+        activity.showBookmarkSuccess()
+      }
+    })
+
   }
 
 }

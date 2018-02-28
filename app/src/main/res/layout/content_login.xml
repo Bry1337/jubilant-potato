@@ -59,4 +59,13 @@
           />
     </LinearLayout>
   </RelativeLayout>
+
+  <ProgressBar
+      android:id="@+id/pbLogin"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:indeterminateTint="@color/colorPrimary"
+      android:visibility="gone"
+      />
 </RelativeLayout>
