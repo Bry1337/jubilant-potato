@@ -27,6 +27,18 @@ class SharedPreferenceManager(var sharedPreferences: SharedPreferences) {
     }
   }
 
+  fun saveUID(uid: String) {
+    sharedPreferences.edit {
+      putString(SharedPreferenceKeys.UID, uid)
+    }
+  }
+
+  fun saveEmail(email: String) {
+    sharedPreferences.edit {
+      putString(SharedPreferenceKeys.EMAIL, email)
+    }
+  }
+
   fun isUserLoggedIn(): Boolean {
     return sharedPreferences.getBoolean(SharedPreferenceKeys.IS_USER_LOGGED_IN, false)
   }
@@ -37,6 +49,14 @@ class SharedPreferenceManager(var sharedPreferences: SharedPreferences) {
 
   fun getPhotoUri(): String {
     return sharedPreferences.getString(SharedPreferenceKeys.PHOTO_URL, StringUtils.EMPTY)
+  }
+
+  fun getUID(): String {
+    return sharedPreferences.getString(SharedPreferenceKeys.UID, StringUtils.EMPTY)
+  }
+
+  fun getEmail(): String {
+    return sharedPreferences.getString(SharedPreferenceKeys.EMAIL, StringUtils.EMPTY)
   }
 
   fun clearSharedPreferences() {

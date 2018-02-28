@@ -25,4 +25,6 @@ interface ApplicationComponent {
   fun plus(detailedNewsModule: DetailedNewsModule): DetailedNewsComponent
 
   fun plus(platformListModule: PlatformListModule): PlatformListComponent
+
+  fun plus(bookmarkModule: BookmarkModule): BookmarkComponent
 }

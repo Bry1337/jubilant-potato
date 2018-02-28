@@ -6,6 +6,7 @@ import android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
 import android.net.Uri
 import com.tickr.tickr.application.AppConstants
 import com.tickr.tickr.models.Article
+import com.tickr.tickr.ui.activities.bookmark.BookmarkActivity
 import com.tickr.tickr.ui.activities.detailednews.DetailedNewsActivity
 import com.tickr.tickr.ui.activities.home.HomeActivity
 import com.tickr.tickr.ui.activities.login.LoginActivity
@@ -68,6 +69,11 @@ class AppActivityManager {
   fun displayPlatformListNews(activity: Activity, article: Article) {
     val intent = Intent(activity, PlatformListActivity::class.java)
     intent.putExtra(AppConstants.ARTICLE_OBJECT, article)
+    activity.startActivity(intent)
+  }
+
+  fun displayBookmarks(activity: Activity) {
+    val intent = Intent(activity, BookmarkActivity::class.java)
     activity.startActivity(intent)
   }
 }

@@ -50,7 +50,7 @@ class HomePresenter(var activity: HomeActivity,
   }
 
   fun initNewsDefaultCategory() {
-    activity.databaseReference.addValueEventListener(object : ValueEventListener {
+    activity.databaseReference.child(AppConstants.FIREBASE_CATEGORY).addValueEventListener(object : ValueEventListener {
       override fun onCancelled(p0: DatabaseError?) {
         Log.w(TAG, "loadPost:onCancelled", p0?.toException())
       }
@@ -85,8 +85,7 @@ class HomePresenter(var activity: HomeActivity,
       articleList.clear()
     }
     activity.showProgressBar()
-    for (dataSnapShot: DataSnapshot in p0?.child(AppConstants.FIREBASE_CATEGORY)!!.child(
-        AppConstants.FIREBASE_DEFAULT_CATEGORY)!!.children) run {
+    for (dataSnapShot: DataSnapshot in p0?.child(AppConstants.FIREBASE_DEFAULT_CATEGORY)!!.children) run {
       val category = dataSnapShot.getValue(Category::class.java)
       activity.subscription.add(getCategoryTopHeadlines(category!!.source))
     }

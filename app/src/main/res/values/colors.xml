@@ -3,7 +3,7 @@
   <color name="colorPrimary">#009eaf</color>
   <color name="colorPrimaryDark">#005660</color>
   <color name="colorAccent">#ffffff</color>
-  <color name="profile_section_color">#00c0d4</color>
+  <color name="profile_section_color">#009eaf</color>
 
   <color name="grey_200">#EEEEEE</color>
   <color name="grey_300">#E0E0E0</color>

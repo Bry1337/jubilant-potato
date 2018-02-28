@@ -26,8 +26,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical"
+          >
+        <include layout="@layout/content_profile_section" />
 
-      <include layout="@layout/content_profile_section" />
+        <LinearLayout
+            android:id="@+id/llBookMarks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:background="?android:selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/normal_overall_padding"
+            >
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:src="@drawable/ic_bookmark_grey"
+              />
+
+          <TextView
+              android:id="@+id/tvSource"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:layout_marginEnd="@dimen/medium_overall_margin"
+              android:layout_marginStart="@dimen/small_margin"
+              android:ellipsize="end"
+              android:maxLines="1"
+              android:text="@string/bookmarks"
+              android:textColor="@color/grey_600"
+              android:textSize="@dimen/font_size_semi_normal"
+              />
+        </LinearLayout>
+      </LinearLayout>
 
 
       <ImageView

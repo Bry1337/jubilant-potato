@@ -23,9 +23,11 @@ class AppConstants {
 
 
     // FIREBASE CONSTANTS
-    const val FIREBASE_CATEGORY = "category"
-    const val FIREBASE_DEFAULT_CATEGORY = "default"
-    const val FIREBASE_INFO_CONNECTION = ".info/connected"
+    const val FIREBASE_CATEGORY: String = "category"
+    const val FIREBASE_DEFAULT_CATEGORY: String = "default"
+    const val FIREBASE_USERS: String = "users"
+    const val FIREBASE_BOOKMARKS: String = "bookmarks"
+    const val FIREBASE_INFO_CONNECTION: String = ".info/connected"
 
 
     // AppActivityManager Constants

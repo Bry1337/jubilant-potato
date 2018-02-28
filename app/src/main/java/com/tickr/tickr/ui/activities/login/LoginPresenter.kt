@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.tickr.tickr.R
 import com.tickr.tickr.api.managers.ApiManager
+import com.tickr.tickr.application.AppConstants
+import com.tickr.tickr.models.User
 import com.tickr.tickr.ui.BasePresenter
 
 
@@ -58,44 +60,6 @@ class LoginPresenter(var activity: LoginActivity, var apiManager: ApiManager) : 
     activity.finish()
   }
 
-  fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-    try {
-      val account = completedTask.getResult(ApiException::class.java)
-
-      // Signed in successfully, show authenticated UI.
-      firebaseAuthWithGoogle(account)
-      activity.sharedPreferenceManager.logUserIn()
-      activity.sharedPreferenceManager.saveFullName(account.displayName.toString())
-      activity.sharedPreferenceManager.savePhotoUri(account.photoUrl.toString())
-      activity.appActivityManager.displayHomeScreen(activity)
-      activity.finish()
-    } catch (e: ApiException) {
-      // The ApiException status code indicates the detailed failure reason.
-      // Please refer to the GoogleSignInStatusCodes class reference for more information.
-      Log.w(TAG, "signInResult:failed code=" + e.statusCode)
-    }
-
-  }
-
-  private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
-    Log.d(TAG, "firebaseAuthWithGoogle:" + acct.id!!)
-    val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
-    activity.mAuth.signInWithCredential(credential)
-        .addOnCompleteListener(activity, OnCompleteListener<AuthResult> { task ->
-          if (task.isSuccessful) {
-            // Sign in success, update UI with the signed-in user's information
-            Log.d(TAG, "signInWithCredential:success")
-            val user = activity.mAuth.currentUser
-            activity.sharedPreferenceManager.logUserIn()
-          } else {
-            // If sign in fails, display a message to the user.
-            Log.w(TAG, "signInWithCredential:failure", task.exception)
-            showAlertDialog(activity.getString(R.string.authentication_failed))
-          }
-
-        })
-  }
-
   fun isNetworkAvailable(con: Context): Boolean {
     try {
       val cm = con
@@ -110,6 +74,58 @@ class LoginPresenter(var activity: LoginActivity, var apiManager: ApiManager) : 
     }
 
     return false
+  }
+
+  fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+    try {
+      val account = completedTask.getResult(ApiException::class.java)
+
+      // Signed in successfully, show authenticated UI.
+      firebaseAuthWithGoogle(account)
+    } catch (e: ApiException) {
+      // The ApiException status code indicates the detailed failure reason.
+      // Please refer to the GoogleSignInStatusCodes class reference for more information.
+      Log.w(TAG, "signInResult:failed code=" + e.statusCode)
+    }
+
+  }
+
+  private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
+    activity.showProgressBar()
+    Log.d(TAG, "firebaseAuthWithGoogle:" + acct.id!!)
+    val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+    activity.mAuth.signInWithCredential(credential)
+        .addOnCompleteListener(activity, OnCompleteListener<AuthResult> { task ->
+          activity.hideProgressBar()
+          if (task.isSuccessful) {
+            // Sign in success, update UI with the signed-in user's information
+            Log.d(TAG, "signInWithCredential:success")
+            val user = activity.mAuth.currentUser
+            processUserLogIn(user)
+            saveToFireBase(user?.uid!!)
+          } else {
+            // If sign in fails, display a message to the user.
+            Log.w(TAG, "signInWithCredential:failure", task.exception)
+            showAlertDialog(activity.getString(R.string.authentication_failed))
+          }
+
+        })
+  }
+
+  private fun processUserLogIn(user: FirebaseUser?) {
+    activity.sharedPreferenceManager.logUserIn()
+    activity.sharedPreferenceManager.saveUID(user?.uid!!)
+    activity.sharedPreferenceManager.saveFullName(user.displayName.toString())
+    activity.sharedPreferenceManager.savePhotoUri(user.photoUrl.toString())
+    activity.sharedPreferenceManager.saveEmail(user.email.toString())
+    activity.appActivityManager.displayHomeScreen(activity)
+    activity.finish()
+  }
+
+  private fun saveToFireBase(uid: String) {
+    val user = User(uid, activity.sharedPreferenceManager.getFullName(),
+        activity.sharedPreferenceManager.getEmail())
+    activity.databaseReference.child(AppConstants.FIREBASE_USERS).child(uid).setValue(user)
   }
 
 

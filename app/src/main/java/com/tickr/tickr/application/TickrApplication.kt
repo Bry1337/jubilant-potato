@@ -6,6 +6,7 @@ import com.tickr.tickr.dagger.components.DaggerApplicationComponent
 import com.tickr.tickr.dagger.components.activities.*
 import com.tickr.tickr.dagger.modules.ApplicationModule
 import com.tickr.tickr.dagger.modules.activities.*
+import com.tickr.tickr.ui.activities.bookmark.BookmarkActivity
 import com.tickr.tickr.ui.activities.detailednews.DetailedNewsActivity
 import com.tickr.tickr.ui.activities.home.HomeActivity
 import com.tickr.tickr.ui.activities.login.LoginActivity
@@ -25,6 +26,7 @@ class TickrApplication : BaseApplication() {
   private var platformComponent: PlatformComponent? = null
   private var detailedNewsComponent: DetailedNewsComponent? = null
   private var platformListComponent: PlatformListComponent? = null
+  private var bookmarkComponent: BookmarkComponent? = null
 
   companion object {
     operator fun get(context: Context): TickrApplication {
@@ -67,6 +69,11 @@ class TickrApplication : BaseApplication() {
     return platformListComponent as PlatformListComponent
   }
 
+  fun createBookmarkComponent(bookmarkActivity: BookmarkActivity): BookmarkComponent {
+    bookmarkComponent = applicationComponent.plus(BookmarkModule(bookmarkActivity))
+    return bookmarkComponent as BookmarkComponent
+  }
+
   fun releaseLoginComponent() {
     loginComponent = null
   }
@@ -83,7 +90,11 @@ class TickrApplication : BaseApplication() {
     detailedNewsComponent = null
   }
 
-  fun releasePlatformListComponent(){
+  fun releasePlatformListComponent() {
     platformListComponent = null
+  }
+
+  fun releaseBookmarkComponent() {
+    bookmarkComponent = null
   }
 }
