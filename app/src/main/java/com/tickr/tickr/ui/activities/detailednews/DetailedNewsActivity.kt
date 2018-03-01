@@ -2,7 +2,6 @@ package com.tickr.tickr.ui.activities.detailednews
 
 import android.support.v7.app.AlertDialog
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import com.bumptech.glide.Glide
@@ -81,27 +80,27 @@ class DetailedNewsActivity : ToolBarbaseActivity() {
     Toast.makeText(this, getString(R.string.this_article_has_been_bookmarked), LENGTH_SHORT).show()
   }
 
-  fun showErrorMessage(){
+  fun showErrorMessage() {
     presenter.showAlertDialog(getString(R.string.something_unexpected_happened))
   }
 
   private fun setViewObjects() {
     tvDate.text = presenter.getCurrentDateAndTimeFormat(article.publishedAt!!)
-    tvAuthor.text = article.author
+    tvAuthor.text = if (article.author != null) article.author else article.source?.name
     tvTitle.text = article.title
     tvDescription.text = article.description
-    tvLink.text = article.url
     Glide.with(this).load(article.urlToImage).centerCrop().crossFade().into(ivDetailedNewsImage)
-    if (!sharedPreferenceManager.isUserLoggedIn()) {
-      ivBookMark.visibility = View.GONE
-    }
   }
 
   private fun setListener() {
-    tvLink.setOnClickListener({ presenter.redirectToBrowser(tvLink.text as String) })
+    tvReadMore.setOnClickListener({ presenter.redirectToBrowser(article.url!!) })
     ivShareNews.setOnClickListener({ presenter.shareToOthers(article.url!!) })
     ivBookMark.setOnClickListener({
-      presenter.saveToFirebase(article)
+      if (sharedPreferenceManager.isUserLoggedIn()) {
+        presenter.saveToFirebase(article)
+      } else {
+        appActivityManager.displayLoginScreen(this)
+      }
     })
   }
 
