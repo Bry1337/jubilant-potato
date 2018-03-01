@@ -7,7 +7,7 @@
   <dimen name="toolbar_height">40dp</dimen>
 
   <dimen name="default_category_news_height">200dp</dimen>
-  <dimen name="detailed_news_height">180dp</dimen>
+  <dimen name="detailed_news_height">230dp</dimen>
   <dimen name="profile_section_height">150dp</dimen>
   <dimen name="platform_news_height">150dp</dimen>
   <dimen name="profile_image_width">80dp</dimen>
@@ -35,5 +35,7 @@
   <dimen name="font_size_medium">20sp</dimen>
   <dimen name="font_size_regular">24sp</dimen>
   <dimen name="font_size_big">32sp</dimen>
+
+  <item format="float" name="detailed_news_date_alpha" type="dimen">0.5</item>
 
 </resources>
