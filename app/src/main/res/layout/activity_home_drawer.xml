@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:openDrawer="start"
+    >
+
+  <include
+      layout="@layout/activity_home"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      />
+
+
+  <com.google.android.material.navigation.NavigationView
+      android:id="@+id/nav_view"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_gravity="start"
+      >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical"
+          >
+        <include layout="@layout/content_profile_section" />
+
+        <LinearLayout
+            android:id="@+id/llBookMarks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:background="?android:selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/normal_overall_padding"
+            >
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:src="@drawable/ic_bookmark_grey"
+              />
+
+          <TextView
+              android:id="@+id/tvSource"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:layout_marginEnd="@dimen/medium_overall_margin"
+              android:layout_marginStart="@dimen/small_margin"
+              android:ellipsize="end"
+              android:maxLines="1"
+              android:text="@string/bookmarks"
+              android:textColor="@color/grey_600"
+              android:textSize="@dimen/font_size_semi_normal"
+              />
+        </LinearLayout>
+      </LinearLayout>
+
+
+      <ImageView
+          android:id="@+id/ivLogout"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:layout_centerHorizontal="true"
+          android:layout_marginBottom="@dimen/normal_margin"
+          android:background="?android:selectableItemBackground"
+          android:padding="@dimen/normal_overall_padding"
+          android:src="@drawable/ic_logout_color_primary"
+          />
+
+    </RelativeLayout>
+  </com.google.android.material.navigation.NavigationView>
+
+</androidx.drawerlayout.widget.DrawerLayout>

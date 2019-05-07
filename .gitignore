@@ -132,3 +132,4 @@ fabric.properties
 
 /gradle/
 /.idea/
+/gradle.properties

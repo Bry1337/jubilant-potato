@@ -1,3 +1,29 @@
 <resources>
-  <string name="app_name">Jubilant Potato</string>
+  <string name="app_name">Tickr</string>
+
+  <string name="guest">Guest</string>
+  <string name="ok">Ok</string>
+  <string name="retry">Retry</string>
+
+  <string name="authentication_failed">Authentication Failed.</string>
+  <string name="home">Home</string>
+  <string name="no_internet">No Internet connection. Make sure Wi-Fi or cellular data is turned on, then try again.</string>
+
+  <string name="http_error_unexpected">Http request: Unexpected error found</string>
+
+  <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+  <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+
+  <string name="are_you_sure_you_want_to_exit">Are you sure you want to exit?</string>
+  <string name="are_you_sure_you_want_to_logout">Are you sure you want to sign out?</string>
+  <string name="yes">Yes</string>
+  <string name="no">No</string>
+
+  <string name="read_more">READ MORE</string>
+  <string name="login">Login</string>
+  <string name="headlines">Headlines</string>
+  <string name="everything_about">Everything about %s</string>
+  <string name="this_article_has_been_bookmarked">This article has been bookmarked</string>
+  <string name="something_unexpected_happened">Something unexpected occurred, please try again later.</string>
+  <string name="bookmarks">Bookmarks</string>
 </resources>
