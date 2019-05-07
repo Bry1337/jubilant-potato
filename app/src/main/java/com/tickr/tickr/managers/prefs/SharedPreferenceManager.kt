@@ -1,7 +1,7 @@
 package com.tickr.tickr.managers.prefs
 
 import android.content.SharedPreferences
-import androidx.content.edit
+import androidx.core.content.edit
 import org.apache.commons.lang3.StringUtils
 
 /**

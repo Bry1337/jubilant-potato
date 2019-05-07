@@ -1,9 +1,10 @@
 package com.tickr.tickr.ui.activities.platform
 
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.tickr.tickr.R
 import com.tickr.tickr.application.AppConstants
 import com.tickr.tickr.application.TickrApplication
@@ -96,7 +97,7 @@ class PlatformActivity : HttpToolBarBaseActivity() {
     articles = ArrayList()
     platformNewsAdapter = PlatformNewsAdapter(articles, this, platformPresenter)
     rvPlatformNews.adapter = platformNewsAdapter
-    rvPlatformNews.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+    rvPlatformNews.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     rvPlatformNews.isNestedScrollingEnabled = false
   }
 

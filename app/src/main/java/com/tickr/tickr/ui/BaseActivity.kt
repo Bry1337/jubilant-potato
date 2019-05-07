@@ -2,11 +2,11 @@ package com.tickr.tickr.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import butterknife.ButterKnife
 import butterknife.Unbinder
-import com.tickr.tickr.ui.utils.LocaleHelper
 import com.tickr.tickr.BuildConfig
+import com.tickr.tickr.ui.utils.LocaleHelper
 
 /**
  * Created by bry1337 on 25/01/2018.

@@ -1,7 +1,7 @@
 package com.tickr.tickr.ui.activities.platform
 
 import android.app.Activity
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import com.tickr.tickr.api.managers.ApiManager
 import com.tickr.tickr.api.response.NewsResponse
 import com.tickr.tickr.api.utils.RetrofitException

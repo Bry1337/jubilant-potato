@@ -1,11 +1,11 @@
 package com.tickr.tickr.ui.activities.bookmark
 
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DatabaseReference
 import com.tickr.tickr.R
 import com.tickr.tickr.application.TickrApplication
@@ -86,14 +86,13 @@ class BookmarkActivity : HttpToolBarBaseActivity() {
   private fun initBookmarkAdapter() {
     articles = ArrayList()
     bookmarkAdapter = BookmarkAdapter(articles, this, bookmarkPresenter)
-    rvBookmarkList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+    rvBookmarkList.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     rvBookmarkList.adapter = bookmarkAdapter
     rvBookmarkList.isNestedScrollingEnabled = false
     val swipeHandler = object : SwipeToDeleteCallback(this) {
-
-      override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
+      override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val adapter = rvBookmarkList.adapter as BookmarkAdapter
-        adapter.removeAt(viewHolder?.adapterPosition!!)
+        adapter.removeAt(viewHolder.adapterPosition)
       }
     }
     val itemTouchHelper = ItemTouchHelper(swipeHandler)

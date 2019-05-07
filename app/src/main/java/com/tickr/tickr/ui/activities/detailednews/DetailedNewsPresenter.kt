@@ -1,7 +1,7 @@
 package com.tickr.tickr.ui.activities.detailednews
 
 import android.app.Activity
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import com.tickr.tickr.api.managers.ApiManager
 import com.tickr.tickr.application.AppConstants
 import com.tickr.tickr.models.Article
@@ -54,11 +54,11 @@ class DetailedNewsPresenter(var activity: DetailedNewsActivity,
         String.format("%s%s%s", article.source?.id, article.author, article.publishedAt))
     val databaseReference = activity.databaseReference.child(AppConstants.FIREBASE_BOOKMARKS).child(
         activity.sharedPreferenceManager.getUID())
-    databaseReference.child(sourceId).setValue(article).addOnCompleteListener({ task ->
+    databaseReference.child(sourceId).setValue(article).addOnCompleteListener { task ->
       if (task.isSuccessful) {
         activity.showBookmarkSuccess()
       }
-    })
+    }
 
   }
 

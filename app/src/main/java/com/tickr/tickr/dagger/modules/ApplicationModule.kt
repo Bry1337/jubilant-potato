@@ -58,14 +58,14 @@ class ApplicationModule(private val application: Application) {
     return FirebaseAuth.getInstance()
   }
 
-  @Provides
-  @Singleton
-  fun provideGoogleSignInClient(): GoogleSignInClient {
-    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestIdToken(BuildConfig.WEB_CLIENT_ID)
-        .requestProfile()
-        .requestEmail()
-        .build()
-    return GoogleSignIn.getClient(application.applicationContext, gso)
-  }
+//  @Provides
+//  @Singleton
+//  fun provideGoogleSignInClient(): GoogleSignInClient {
+//    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//        .requestIdToken(BuildConfig.WEB_CLIENT_ID)
+//        .requestProfile()
+//        .requestEmail()
+//        .build()
+//    return GoogleSignIn.getClient(application.applicationContext, gso)
+//  }
 }

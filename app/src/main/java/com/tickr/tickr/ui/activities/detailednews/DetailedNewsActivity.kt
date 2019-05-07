@@ -1,9 +1,9 @@
 package com.tickr.tickr.ui.activities.detailednews
 
-import android.support.v7.app.AlertDialog
 import android.view.MenuItem
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.google.firebase.database.DatabaseReference
 import com.tickr.tickr.R
@@ -95,13 +95,11 @@ class DetailedNewsActivity : ToolBarbaseActivity() {
   private fun setListener() {
     tvReadMore.setOnClickListener({ presenter.redirectToBrowser(article.url!!) })
     ivShareNews.setOnClickListener({ presenter.shareToOthers(article.url!!) })
-    ivBookMark.setOnClickListener({
+    ivBookMark.setOnClickListener {
       if (sharedPreferenceManager.isUserLoggedIn()) {
         presenter.saveToFirebase(article)
-      } else {
-        appActivityManager.displayLoginScreen(this)
       }
-    })
+    }
   }
 
 

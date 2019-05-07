@@ -2,8 +2,8 @@ package com.tickr.tickr.ui.activities.bookmark
 
 import android.app.Activity
 import android.content.ContentValues
-import android.support.v7.app.AlertDialog
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -26,7 +26,7 @@ class BookmarkPresenter(var activity: BookmarkActivity,
   override fun onBookmarkDelete(obj: Any) {
     val article = obj as Article
     activity.databaseReference.child(AppConstants.FIREBASE_BOOKMARKS).child(
-        activity.sharedPreferenceManager.getUID()).child(article.firebaseKey).removeValue()
+        activity.sharedPreferenceManager.getUID()).child(article.firebaseKey!!).removeValue()
 
   }
 
@@ -50,11 +50,11 @@ class BookmarkPresenter(var activity: BookmarkActivity,
     activity.databaseReference.child(
         AppConstants.FIREBASE_BOOKMARKS).child(
         activity.sharedPreferenceManager.getUID()).addValueEventListener(object : ValueEventListener {
-      override fun onCancelled(p0: DatabaseError?) {
+      override fun onCancelled(p0: DatabaseError) {
         Log.w(ContentValues.TAG, "loadPost:onCancelled", p0?.toException())
       }
 
-      override fun onDataChange(p0: DataSnapshot?) {
+      override fun onDataChange(p0: DataSnapshot) {
         processFirebaseOnDataChange(p0)
       }
 

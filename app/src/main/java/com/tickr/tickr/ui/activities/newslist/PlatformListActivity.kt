@@ -1,9 +1,9 @@
 package com.tickr.tickr.ui.activities.newslist
 
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tickr.tickr.R
 import com.tickr.tickr.application.AppConstants
 import com.tickr.tickr.application.TickrApplication

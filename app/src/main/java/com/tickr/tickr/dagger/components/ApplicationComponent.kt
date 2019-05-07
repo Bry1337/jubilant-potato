@@ -16,8 +16,6 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = arrayOf(ApplicationModule::class, ApiModule::class))
 interface ApplicationComponent {
-  fun plus(loginModule: LoginModule): LoginComponent
-
   fun plus(homeModule: HomeModule): HomeComponent
 
   fun plus(platformModule: PlatformModule): PlatformComponent

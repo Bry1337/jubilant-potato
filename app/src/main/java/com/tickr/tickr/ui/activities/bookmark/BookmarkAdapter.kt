@@ -1,12 +1,12 @@
 package com.tickr.tickr.ui.activities.bookmark
 
 import android.app.Activity
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tickr.tickr.R
 import com.tickr.tickr.models.Article
@@ -20,16 +20,17 @@ import com.tickr.tickr.ui.utils.OnBindViewListener
 class BookmarkAdapter(var articleList: ArrayList<Article>,
     var bookmarkActivity: BookmarkActivity,
     var bookmarkPresenter: BookmarkPresenter) : RecyclerView.Adapter<BookmarkAdapter.ViewHolder>() {
-  override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-    return ViewHolder(LayoutInflater.from(bookmarkActivity).inflate(R.layout.item_platform_news, parent, false))
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    return ViewHolder(
+        LayoutInflater.from(bookmarkActivity).inflate(R.layout.item_platform_news, parent, false))
   }
 
   override fun getItemCount(): Int {
     return articleList.size
   }
 
-  override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-    holder?.onBind(articleList[position], bookmarkActivity, bookmarkPresenter)
+  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    holder.onBind(articleList[position], bookmarkActivity, bookmarkPresenter)
   }
 
 
@@ -39,7 +40,7 @@ class BookmarkAdapter(var articleList: ArrayList<Article>,
     notifyItemRemoved(position)
   }
 
-  class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), OnBindViewListener {
+  class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!), OnBindViewListener {
 
     var ivPlatformNews = itemView?.findViewById<ImageView>(R.id.ivPlatformNews)
     var tvTitle = itemView?.findViewById<TextView>(R.id.tvTitle)
@@ -53,7 +54,7 @@ class BookmarkAdapter(var articleList: ArrayList<Article>,
       tvDescription?.text = article.description
       tvAuthor?.text = article.author
 
-      itemView.setOnClickListener({ (presenter as BookmarkPresenter).onSingleItemClick(article) })
+      itemView.setOnClickListener { (presenter as BookmarkPresenter).onSingleItemClick(article) }
     }
 
   }

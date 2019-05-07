@@ -1,12 +1,12 @@
 package com.tickr.tickr.ui.activities.home
 
 import android.app.Activity
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tickr.tickr.R
 import com.tickr.tickr.models.Article
@@ -22,20 +22,21 @@ class HomeDefaultCategoryAdapter(var articles: ArrayList<Article>,
     var activity: HomeActivity) : RecyclerView.Adapter<HomeDefaultCategoryAdapter.ViewHolder>() {
 
 
-  override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-    return ViewHolder(LayoutInflater.from(activity).inflate(R.layout.item_default_category_news, parent, false))
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    return ViewHolder(
+        LayoutInflater.from(activity).inflate(R.layout.item_default_category_news, parent, false))
   }
 
   override fun getItemCount(): Int {
     return articles.size
   }
 
-  override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     holder?.onBind(articles[position], activity, presenter)
   }
 
 
-  class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), OnBindViewListener {
+  class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!), OnBindViewListener {
 
     var ivNewsImage = itemView?.findViewById<ImageView>(R.id.ivNewsImage)
     var ivStar = itemView?.findViewById<ImageView>(R.id.ivStar)

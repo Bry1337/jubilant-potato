@@ -1,16 +1,13 @@
 package com.tickr.tickr.ui.activities.home
 
 import android.content.DialogInterface
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.GridLayoutManager
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import com.bumptech.glide.Glide
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.tickr.tickr.R
@@ -23,7 +20,6 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home_drawer.*
 import kotlinx.android.synthetic.main.content_home.*
 import kotlinx.android.synthetic.main.content_no_internet.*
-import kotlinx.android.synthetic.main.content_profile_section.*
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
@@ -46,8 +42,8 @@ class HomeActivity : HttpToolBarBaseActivity() {
   lateinit var subscription: CompositeSubscription
   @Inject
   lateinit var sharedPreferenceManager: SharedPreferenceManager
-  @Inject
-  lateinit var mGoogleSignInClient: GoogleSignInClient
+  //  @Inject
+//  lateinit var mGoogleSignInClient: GoogleSignInClient
   @Inject
   lateinit var mAuth: FirebaseAuth
 
@@ -59,7 +55,7 @@ class HomeActivity : HttpToolBarBaseActivity() {
     get() = false
 
   override fun setupActivityLayout() {
-    setContentView(R.layout.activity_home_drawer)
+    setContentView(R.layout.activity_home)
   }
 
   override fun setupViewElements() {
@@ -87,7 +83,6 @@ class HomeActivity : HttpToolBarBaseActivity() {
       }
 
       R.id.action_login -> {
-        appActivityManager.displayLoginScreen(this)
         finish()
       }
     }
@@ -113,19 +108,11 @@ class HomeActivity : HttpToolBarBaseActivity() {
     homePresenter.showAlertDialog(message)
   }
 
-  override fun onCreateOptionsMenu(menu: Menu): Boolean {
-    if (!sharedPreferenceManager.isUserLoggedIn()) {
-      val menuInflater: MenuInflater = menuInflater
-      menuInflater.inflate(R.menu.home, menu)
-    }
-    return super.onCreateOptionsMenu(menu)
-  }
-
   fun initHomeDefaultCategoryAdapter() {
     articles = ArrayList()
     homeDefaultCategoryAdapter = HomeDefaultCategoryAdapter(articles, homePresenter, this)
     rvDefaultCategory.adapter = homeDefaultCategoryAdapter
-    rvDefaultCategory.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+    rvDefaultCategory.layoutManager = GridLayoutManager(this, 2, RecyclerView.VERTICAL, false)
     rvDefaultCategory.isNestedScrollingEnabled = false
   }
 
@@ -158,13 +145,7 @@ class HomeActivity : HttpToolBarBaseActivity() {
   }
 
   fun setViewObjects() {
-    tvFullName.text = sharedPreferenceManager.getFullName()
-    Glide.with(this).load(sharedPreferenceManager.getPhotoUri()).centerCrop().crossFade().into(ivProfilePicture)
-    if (!sharedPreferenceManager.isUserLoggedIn()) {
-      ivLogout.visibility = View.GONE
-    } else {
-      setupNavigation()
-    }
+    setupNavigation()
   }
 
   fun exitApp() {
@@ -196,24 +177,25 @@ class HomeActivity : HttpToolBarBaseActivity() {
 
 
   private fun setupNavigation() {
-    val toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.navigation_drawer_open,
-        R.string.navigation_drawer_close)
-    drawer_layout.addDrawerListener(toggle)
-    toggle.syncState()
+//    val toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string
+//        .navigation_drawer_open,
+//        R.string.navigation_drawer_close)
+//    drawer_layout.addDrawerListener(toggle)
+//    toggle.syncState()
   }
 
 
   private fun initListener() {
-    btnRetryConnection.setOnClickListener({
+    btnRetryConnection.setOnClickListener {
       hideNetworkErrorLayout()
       homePresenter.initNewsDefaultCategory()
-    })
-    ivLogout.setOnClickListener({
-      logoutApp()
-    })
-    llBookMarks.setOnClickListener({
-      appActivityManager.displayBookmarks(this)
-    })
+    }
+//    ivLogout.setOnClickListener {
+//      logoutApp()
+//    }
+//    llBookMarks.setOnClickListener {
+//      appActivityManager.displayBookmarks(this)
+//    }
   }
 
 

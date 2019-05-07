@@ -9,7 +9,6 @@ import com.tickr.tickr.dagger.modules.activities.*
 import com.tickr.tickr.ui.activities.bookmark.BookmarkActivity
 import com.tickr.tickr.ui.activities.detailednews.DetailedNewsActivity
 import com.tickr.tickr.ui.activities.home.HomeActivity
-import com.tickr.tickr.ui.activities.login.LoginActivity
 import com.tickr.tickr.ui.activities.newslist.PlatformListActivity
 import com.tickr.tickr.ui.activities.platform.PlatformActivity
 
@@ -21,7 +20,6 @@ import com.tickr.tickr.ui.activities.platform.PlatformActivity
 class TickrApplication : BaseApplication() {
 
   private lateinit var applicationComponent: ApplicationComponent
-  private var loginComponent: LoginComponent? = null
   private var homeComponent: HomeComponent? = null
   private var platformComponent: PlatformComponent? = null
   private var detailedNewsComponent: DetailedNewsComponent? = null
@@ -42,11 +40,6 @@ class TickrApplication : BaseApplication() {
 
   private fun initAppComponent() {
     applicationComponent = DaggerApplicationComponent.builder().applicationModule(ApplicationModule(this)).build()
-  }
-
-  fun createLoginComponent(loginActivity: LoginActivity): LoginComponent {
-    loginComponent = applicationComponent.plus(LoginModule(loginActivity))
-    return loginComponent as LoginComponent
   }
 
   fun createHomeComponent(homeActivity: HomeActivity): HomeComponent {
@@ -72,10 +65,6 @@ class TickrApplication : BaseApplication() {
   fun createBookmarkComponent(bookmarkActivity: BookmarkActivity): BookmarkComponent {
     bookmarkComponent = applicationComponent.plus(BookmarkModule(bookmarkActivity))
     return bookmarkComponent as BookmarkComponent
-  }
-
-  fun releaseLoginComponent() {
-    loginComponent = null
   }
 
   fun releaseHomeComponent() {

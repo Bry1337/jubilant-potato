@@ -1,12 +1,13 @@
 package com.tickr.tickr.dagger.modules.api
 
-import com.tickr.tickr.api.utils.RxErrorHandlingCallAdapterFactory
 import com.tickr.tickr.BuildConfig
+import com.tickr.tickr.managers.SelfSigningClientBuilder
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -41,7 +42,8 @@ class ApiModule {
     builder.client(okHttpClient)
         .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
+        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+        .client(SelfSigningClientBuilder.getUnsafeOkHttpClient().build())
     return builder.build()
   }
 

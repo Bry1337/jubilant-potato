@@ -22,11 +22,6 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-
-    <activity
-        android:name="com.tickr.tickr.ui.activities.login.LoginActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
     <activity
         android:name=".ui.activities.home.HomeActivity"
         android:label="@string/home"

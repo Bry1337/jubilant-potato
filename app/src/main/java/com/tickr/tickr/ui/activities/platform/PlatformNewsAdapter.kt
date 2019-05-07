@@ -1,12 +1,12 @@
 package com.tickr.tickr.ui.activities.platform
 
 import android.app.Activity
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tickr.tickr.R
 import com.tickr.tickr.models.Article
@@ -21,7 +21,7 @@ class PlatformNewsAdapter(var articles: ArrayList<Article>,
     var platformActivity: PlatformActivity,
     var platformPresenter: PlatformPresenter) : RecyclerView.Adapter<PlatformNewsAdapter.ViewHolder>() {
 
-  override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     return ViewHolder(LayoutInflater.from(platformActivity).inflate(R.layout.item_platform_news, parent, false))
   }
 
@@ -29,12 +29,12 @@ class PlatformNewsAdapter(var articles: ArrayList<Article>,
     return articles.size
   }
 
-  override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     holder?.onBind(articles[position], platformActivity, platformPresenter)
   }
 
 
-  class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), OnBindViewListener {
+  class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!), OnBindViewListener {
 
     var ivPlatformNews = itemView?.findViewById<ImageView>(R.id.ivPlatformNews)
     var tvTitle = itemView?.findViewById<TextView>(R.id.tvTitle)
@@ -48,7 +48,7 @@ class PlatformNewsAdapter(var articles: ArrayList<Article>,
       tvDescription?.text = article.description
       tvAuthor?.text = article.author
 
-      itemView.setOnClickListener({ (presenter as PlatformPresenter).onSingleItemClick(article) })
+      itemView.setOnClickListener { (presenter as PlatformPresenter).onSingleItemClick(article) }
     }
 
   }

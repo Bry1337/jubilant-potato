@@ -4,7 +4,6 @@ import android.content.Intent
 import com.tickr.tickr.R
 import com.tickr.tickr.ui.ToolBarbaseActivity
 import com.tickr.tickr.ui.activities.home.HomeActivity
-import com.tickr.tickr.ui.activities.login.LoginActivity
 
 class MainActivity : ToolBarbaseActivity() {
   override val isActionBarBackButtonEnabled: Boolean

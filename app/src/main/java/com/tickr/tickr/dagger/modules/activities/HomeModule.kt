@@ -1,8 +1,6 @@
 package com.tickr.tickr.dagger.modules.activities
 
-import android.support.v7.app.AlertDialog
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import androidx.appcompat.app.AlertDialog
 import com.tickr.tickr.api.managers.ApiManager
 import com.tickr.tickr.dagger.scopes.UserScope
 import com.tickr.tickr.ui.activities.home.HomeActivity

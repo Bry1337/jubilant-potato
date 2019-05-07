@@ -1,6 +1,6 @@
 package com.tickr.tickr.ui
 
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import com.tickr.tickr.R
 
 /**

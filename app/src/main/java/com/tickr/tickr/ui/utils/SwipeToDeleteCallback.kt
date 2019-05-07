@@ -4,9 +4,9 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.tickr.tickr.R
 
 /**
@@ -22,12 +22,12 @@ abstract class SwipeToDeleteCallback(context: Context) : ItemTouchHelper.SimpleC
   private val background = ColorDrawable()
   private val backgroundColor = Color.parseColor("#f44336")
 
-  override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?,
-      target: RecyclerView.ViewHolder?): Boolean {
+  override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
+      target: RecyclerView.ViewHolder): Boolean {
     return false
   }
 
-  override fun onChildDraw(c: Canvas?, recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder, dX: Float,
+  override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float,
       dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
     val itemView = viewHolder.itemView
     val itemHeight = itemView.bottom - itemView.top

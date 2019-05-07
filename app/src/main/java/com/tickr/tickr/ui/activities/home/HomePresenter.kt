@@ -4,8 +4,8 @@ import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.net.ConnectivityManager
-import android.support.v7.app.AlertDialog
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -50,12 +50,13 @@ class HomePresenter(var activity: HomeActivity,
   }
 
   fun initNewsDefaultCategory() {
-    activity.databaseReference.child(AppConstants.FIREBASE_CATEGORY).addValueEventListener(object : ValueEventListener {
-      override fun onCancelled(p0: DatabaseError?) {
+    activity.databaseReference.child(
+        AppConstants.FIREBASE_CATEGORY).addValueEventListener(object : ValueEventListener {
+      override fun onCancelled(p0: DatabaseError) {
         Log.w(TAG, "loadPost:onCancelled", p0?.toException())
       }
 
-      override fun onDataChange(p0: DataSnapshot?) {
+      override fun onDataChange(p0: DataSnapshot) {
         processFirebaseOnDataChange(p0)
       }
 
@@ -73,9 +74,8 @@ class HomePresenter(var activity: HomeActivity,
 
   fun signOut() {
     activity.mAuth.signOut()
-    activity.mGoogleSignInClient.signOut()
+//    activity.mGoogleSignInClient.signOut()
     activity.sharedPreferenceManager.clearSharedPreferences()
-    activity.appActivityManager.redirectToLogin(activity)
     activity.finish()
   }
 
@@ -85,7 +85,8 @@ class HomePresenter(var activity: HomeActivity,
       articleList.clear()
     }
     activity.showProgressBar()
-    for (dataSnapShot: DataSnapshot in p0?.child(AppConstants.FIREBASE_DEFAULT_CATEGORY)!!.children) run {
+    for (dataSnapShot: DataSnapshot in p0?.child(
+        AppConstants.FIREBASE_DEFAULT_CATEGORY)!!.children) run {
       val category = dataSnapShot.getValue(Category::class.java)
       activity.subscription.add(getCategoryTopHeadlines(category!!.source))
     }
@@ -94,7 +95,8 @@ class HomePresenter(var activity: HomeActivity,
 
 
   private fun getCategoryTopHeadlines(sources: String): Subscription {
-    return apiManager.getCategoryTopHeadlines(sources).subscribe(object : SimpleObserver<NewsResponse>() {
+    return apiManager.getCategoryTopHeadlines(
+        sources).subscribe(object : SimpleObserver<NewsResponse>() {
       override fun onNext(t: NewsResponse) {
         activity.hideProgressBar()
         if (t.status.equals(AppConstants.NEWS_API_STATUS_OK)) {
