@@ -2,14 +2,9 @@ package com.tickr.tickr.dagger.modules
 
 import android.app.Application
 import android.content.Context
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.tickr.tickr.BuildConfig
-import com.tickr.tickr.dagger.scopes.UserScope
 import com.tickr.tickr.managers.AppActivityManager
 import com.tickr.tickr.managers.prefs.SharedPreferenceKeys
 import com.tickr.tickr.managers.prefs.SharedPreferenceManager
@@ -57,15 +52,4 @@ class ApplicationModule(private val application: Application) {
   fun provideFirebaseAuth(): FirebaseAuth {
     return FirebaseAuth.getInstance()
   }
-
-//  @Provides
-//  @Singleton
-//  fun provideGoogleSignInClient(): GoogleSignInClient {
-//    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//        .requestIdToken(BuildConfig.WEB_CLIENT_ID)
-//        .requestProfile()
-//        .requestEmail()
-//        .build()
-//    return GoogleSignIn.getClient(application.applicationContext, gso)
-//  }
 }

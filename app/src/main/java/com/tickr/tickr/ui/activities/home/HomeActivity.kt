@@ -1,27 +1,31 @@
 package com.tickr.tickr.ui.activities.home
 
 import android.content.DialogInterface
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
-import com.tickr.tickr.R
 import com.tickr.tickr.application.TickrApplication
 import com.tickr.tickr.managers.AppActivityManager
 import com.tickr.tickr.managers.prefs.SharedPreferenceManager
 import com.tickr.tickr.models.Article
 import com.tickr.tickr.ui.HttpToolBarBaseActivity
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home_drawer.*
 import kotlinx.android.synthetic.main.content_home.*
 import kotlinx.android.synthetic.main.content_no_internet.*
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
+import android.content.Intent
+import android.net.Uri
+import com.tickr.tickr.R
+import com.tickr.tickr.application.AppConstants
+
 
 /**
  * Created by bry1337 on 20/02/2018.
@@ -42,8 +46,6 @@ class HomeActivity : HttpToolBarBaseActivity() {
   lateinit var subscription: CompositeSubscription
   @Inject
   lateinit var sharedPreferenceManager: SharedPreferenceManager
-  //  @Inject
-//  lateinit var mGoogleSignInClient: GoogleSignInClient
   @Inject
   lateinit var mAuth: FirebaseAuth
 
@@ -55,7 +57,7 @@ class HomeActivity : HttpToolBarBaseActivity() {
     get() = false
 
   override fun setupActivityLayout() {
-    setContentView(R.layout.activity_home)
+    setContentView(com.tickr.tickr.R.layout.activity_home)
   }
 
   override fun setupViewElements() {
@@ -82,12 +84,23 @@ class HomeActivity : HttpToolBarBaseActivity() {
         return true
       }
 
-      R.id.action_login -> {
-        finish()
+      R.id.action_privacy_policy -> {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(AppConstants.PRIVACY_POLICY)
+        startActivity(intent)
       }
     }
     return super.onOptionsItemSelected(item)
   }
+
+  override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    if (!sharedPreferenceManager.isUserLoggedIn()) {
+      val menuInflater: MenuInflater = menuInflater
+      menuInflater.inflate(R.menu.home, menu)
+    }
+    return super.onCreateOptionsMenu(menu)
+  }
+
 
   override fun onBackPressed() {
     if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
