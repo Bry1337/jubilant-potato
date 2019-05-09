@@ -21,6 +21,7 @@
 
   <string name="read_more">READ MORE</string>
   <string name="login">Login</string>
+  <string name="privacy_policy">Privacy Policy</string>
   <string name="headlines">Headlines</string>
   <string name="everything_about">Everything about %s</string>
   <string name="this_article_has_been_bookmarked">This article has been bookmarked</string>

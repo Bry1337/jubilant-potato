@@ -74,7 +74,6 @@ class HomePresenter(var activity: HomeActivity,
 
   fun signOut() {
     activity.mAuth.signOut()
-//    activity.mGoogleSignInClient.signOut()
     activity.sharedPreferenceManager.clearSharedPreferences()
     activity.finish()
   }

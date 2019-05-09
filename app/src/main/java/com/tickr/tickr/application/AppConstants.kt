@@ -35,5 +35,8 @@ class AppConstants {
     const val CATEGORY_CURRENT_COUNT: Int = 10
     const val SHARING_TYPE: String = "text/plain"
     const val SHARE_TEXT: String = "Share"
+
+    // PRIVACY POLICY LINK
+    const val PRIVACY_POLICY: String = "https://bry1337.github.io/privacy_policy_tickr.html"
   }
 }

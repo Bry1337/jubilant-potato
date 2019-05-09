@@ -6,6 +6,13 @@
       android:id="@+id/action_login"
       android:orderInCategory="100"
       android:title="@string/login"
+      app:showAsAction="always"
+      android:visible="false"/>
+
+  <item
+      android:id="@+id/action_privacy_policy"
+      android:orderInCategory="100"
+      android:title="@string/privacy_policy"
       app:showAsAction="always" />
 
 </menu>
