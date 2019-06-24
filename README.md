@@ -11,7 +11,7 @@ This project is open source even though it is uploaded in playstore [News Applic
  6. Firebase
  7. Apache Common Utility Libraries
 ## Design Pattern
-MVP (Model-View-Presenter) is the design pattern used to build this to separate the layers and entities from each other specially logic [Clean Architecture](https://github.com/Bry1337/fuzzy-computing-machine). This also includes [SOLID Principle](https://www.baeldung.com/solid-principles) so when you try to change anything the whole application would not collapse, basically speaking
+MVP (Model-View-Presenter) is the design pattern used to build this to separate the layers and entities from each other specially logic [Clean Architecture](https://github.com/Bry1337/fuzzy-computing-machine). This also includes [SOLID Principle](https://www.baeldung.com/solid-principles) so when you try to change anything the whole application would not collapse, basically speaking, decoupled.
 
 # LICENSE
 MIT Liecense
